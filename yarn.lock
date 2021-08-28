@@ -695,10 +695,30 @@
   dependencies:
     "@vue/shared" "^3.2.2"
 
-"@vuepress/theme-default@2.0.0-beta.24":
+"@vuepress/theme-default@2.0.0-beta.24", "@vuepress/theme-default@file:../vuepress-next/packages/@vuepress/theme-default":
   version "2.0.0-beta.24"
-  resolved "https://registry.yarnpkg.com/@vuepress/theme-default/-/theme-default-2.0.0-beta.24.tgz#cc02e6f00676ecfff4039d42a45574f59b58975b"
-  integrity sha512-i4Y6uo/ir4jqCk+alVg3GnxPizGlDLAvsOTBBMdw+FpRnhfCi+ty6kVQKDuN54rWlPQignKfH3AygN5/vT2k7w==
+  dependencies:
+    "@vuepress/client" "2.0.0-beta.24"
+    "@vuepress/core" "2.0.0-beta.24"
+    "@vuepress/plugin-active-header-links" "2.0.0-beta.24"
+    "@vuepress/plugin-back-to-top" "2.0.0-beta.24"
+    "@vuepress/plugin-container" "2.0.0-beta.24"
+    "@vuepress/plugin-git" "2.0.0-beta.24"
+    "@vuepress/plugin-medium-zoom" "2.0.0-beta.24"
+    "@vuepress/plugin-nprogress" "2.0.0-beta.24"
+    "@vuepress/plugin-palette" "2.0.0-beta.24"
+    "@vuepress/plugin-prismjs" "2.0.0-beta.24"
+    "@vuepress/plugin-theme-data" "2.0.0-beta.24"
+    "@vuepress/shared" "2.0.0-beta.24"
+    "@vuepress/utils" "2.0.0-beta.24"
+    "@vueuse/core" "^6.0.0-beta.3"
+    sass "^1.37.5"
+    sass-loader "^12.1.0"
+    vue "^3.2.2"
+    vue-router "^4.0.10"
+
+"@vuepress/theme-default@file:/home/vmihailenco/workspace/vuepress-next/packages/@vuepress/theme-default":
+  version "2.0.0-beta.24"
   dependencies:
     "@vuepress/client" "2.0.0-beta.24"
     "@vuepress/core" "2.0.0-beta.24"
