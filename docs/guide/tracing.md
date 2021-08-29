@@ -1,6 +1,6 @@
 # Performance and errors monitoring
 
-You can monitor performance and errors using
+You can monitor Redis performance and errors using
 [distributed tracing](https://docs.uptrace.dev/guide/tracing.html). Tracing allows you to see how a
 request progresses through different services and systems, timings of every operation, any logs and
 errors as they occur.
@@ -11,7 +11,7 @@ telemetry data to backend platforms. It means that you can instrument your appli
 add or change vendors (backends) as required.
 
 go-redis comes with an OpenTelemetry instrumentation called
-[redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel) and distributed as a
+[redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel) that is distributed as a
 separate module:
 
 ```shell
@@ -47,7 +47,7 @@ rdb := redis.NewClusterClient(&redis.ClusterOptions{
 rdb.AddHook(redisotel.NewTracingHook())
 ```
 
-As may be expected, redisotel creates [spans](https://docs.uptrace.dev/guide/tracing.html#spans) for
+As expected, redisotel creates [spans](https://docs.uptrace.dev/guide/tracing.html#spans) for
 processed Redis commands and records any errors as they occur. Here is how the collected information
 is displayed at
 [Uptrace](https://uptrace.dev/explore/1/groups/?system=db%3Aredis&utm_source=redis&utm_campaign=redis-tracing):

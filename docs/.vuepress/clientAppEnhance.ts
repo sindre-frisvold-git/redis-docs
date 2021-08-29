@@ -1,12 +1,28 @@
 import { defineClientAppEnhance } from '@vuepress/client'
 
 export default defineClientAppEnhance(({ router }) => {
-  router.addRoute({ path: '/cluster', redirect: '/guide/cluster.html' })
-  router.addRoute({ path: '/sentinel', redirect: '/guide/sentinel.html' })
-  router.addRoute({ path: '/ring', redirect: '/guide/ring.html' })
-  router.addRoute({ path: '/universal', redirect: '/guide/universal.html' })
-  router.addRoute({ path: '/tracing', redirect: '/guide/tracing.html' })
-  router.addRoute({ path: '/caching', redirect: '/guide/caching.html' })
-  router.addRoute({ path: '/rate-limiting', redirect: '/guide/rate-limiting.html' })
-  router.addRoute({ path: '/get-all-keys', redirect: '/guide/get-all-keys.html' })
+  router.beforeResolve((to, from, next) => {
+    const redirectMap = {
+      '/cluster/': '/guide/cluster.html',
+      '/sentinel/': '/guide/sentinel.html',
+      '/ring/': '/guide/ring.html',
+      '/universal/': '/guide/universal.html',
+      '/tracing/': '/guide/tracing.html',
+      '/caching/': '/guide/caching.html',
+      '/rate-limiting/': '/guide/rate-limiting.html',
+      '/get-all-keys/': '/guide/get-all-keys.html',
+    }
+
+    let path = to.path
+    if (!path.endsWith('/')) {
+      path += '/'
+    }
+
+    const redirect = redirectMap[path]
+    if (redirect) {
+      window.location.href = redirect
+    } else {
+      next()
+    }
+  })
 })
