@@ -6,7 +6,7 @@ actions:
   - text: Introduction
     link: /guide/
     type: primary
-  - text: Redis Server Client
+  - text: Getting started
     link: /guide/server.md
     type: secondary
 

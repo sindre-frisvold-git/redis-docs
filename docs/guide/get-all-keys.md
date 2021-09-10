@@ -1,6 +1,9 @@
 # Get all keys
 
-You can iterate over Redis keys that match some pattern using the
+You could use `KEYS pattern` command to retrieve all keys matching the pattern, but it is rather
+slow if you need to scan millions of keys.
+
+Instead you can iterate over Redis keys that match some pattern using the
 [SCAN](https://redis.io/commands/scan) command:
 
 ```go

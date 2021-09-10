@@ -1,4 +1,4 @@
-# Rate limiting
+# Rate-limiting
 
 [go-redis/redis_rate](https://github.com/go-redis/redis_rate) library implements a leaky bucket
 scheduling algorithm (AKA generic cell rate algorithm). You can install it with:

@@ -18,10 +18,12 @@ export const en: SidebarConfig = {
       isGroup: true,
       text: 'Tutorial',
       children: [
+        '/guide/performance.md',
         '/guide/tracing.md',
         '/guide/caching.md',
         '/guide/rate-limiting.md',
         '/guide/get-all-keys.md',
+        '/guide/scanning-hash-fields.md',
       ],
     },
   ],

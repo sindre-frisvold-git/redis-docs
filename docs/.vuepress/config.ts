@@ -38,6 +38,7 @@ export default defineUserConfig<DefaultThemeOptions>({
 
   plugins: [
     ['@vuepress/plugin-debug'],
+    ['@vuepress/plugin-google-analytics', { id: 'G-WS7W97P9KS' }],
     [
       '@vuepress/plugin-register-components',
       {

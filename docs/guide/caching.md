@@ -52,3 +52,6 @@ mycache := cache.New(&cache.Options{
     LocalCache: cache.NewTinyLFU(10000, time.Minute),
 })
 ```
+
+If you are interested in monitoring cache hit rate, see the guide for
+[Monitoring using OpenTelemetry Metrics](https://blog.uptrace.dev/posts/opentelemetry-metrics-cache-stats/).

@@ -1,12 +1,8 @@
----
-title: Redis Server
----
-
-# Go client for Redis Server
+# Getting started
 
 ## Connecting to Redis Server
 
-To connect to a Redis database:
+To connect to a Redis Server:
 
 ```go
 import "github.com/go-redis/redis/v8"
@@ -29,16 +25,16 @@ if err != nil {
 rdb := redis.NewClient(opt)
 ```
 
-### Using SSL
+### Using TLS
 
-To enable SSL, you need to provide a `tls.Config`. If you're using private certs, then you also need
-to [specify](https://pkg.go.dev/crypto/tls#example-LoadX509KeyPair) them in the `tls.Config`.
+To enable TLS/SSL, you need to provide a `tls.Config`. If you're using private certs, you need to
+[specify](https://pkg.go.dev/crypto/tls#example-LoadX509KeyPair) them in the `tls.Config`.
 
 ```go
 rdb := redis.NewClient(&redis.Options{
 	TLSConfig: &tls.Config{
 		MinVersion: tls.VersionTLS12,
-		ServerName: "your.domain.com",
+		//Certificates: []tls.Certificate{cert}
 	},
 })
 ```
@@ -129,7 +125,7 @@ if err != nil {
 fmt.Println(val.(string))
 ```
 
-## Pipelining
+## Pipelines
 
 To execute multiple commands in a single write/read pipeline:
 

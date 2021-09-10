@@ -1,4 +1,6 @@
-# Performance and errors monitoring
+# Monitoring performance and errors
+
+## Monitoring go-redis client
 
 You can monitor Redis performance and errors using
 [distributed tracing](https://docs.uptrace.dev/guide/tracing.html). Tracing allows you to see how a
@@ -18,7 +20,7 @@ separate module:
 go get github.com/go-redis/redis/extra/redisotel/v8
 ```
 
-To instrument Redis client, you need to add a hook provided by redisotel:
+To instrument Redis client, you need to add the hook provided by redisotel:
 
 ```go
 import (
@@ -53,3 +55,10 @@ is displayed at
 [Uptrace](https://uptrace.dev/explore/1/groups/?system=db%3Aredis&utm_source=redis&utm_campaign=redis-tracing):
 
 ![Redis trace](/img/redis-trace.png)
+
+If you need an example, see [GitHub](https://github.com/go-redis/redis/tree/master/example/otel).
+
+## Monitoring Redis Server
+
+See
+[Monitoring Redis Server with OpenTelemetry Collector](https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis/).
