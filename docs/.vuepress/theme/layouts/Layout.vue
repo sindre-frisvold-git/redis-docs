@@ -88,6 +88,7 @@ a {
 
   &:hover {
     color: #fff;
+    text-decoration: underline;
   }
 }
 </style>
