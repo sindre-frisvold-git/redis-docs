@@ -24,6 +24,7 @@ export const en: SidebarConfig = {
         '/guide/rate-limiting.md',
         '/guide/get-all-keys.md',
         '/guide/scanning-hash-fields.md',
+        '/guide/bloom-cuckoo-count-min-top-k.md',
       ],
     },
   ],

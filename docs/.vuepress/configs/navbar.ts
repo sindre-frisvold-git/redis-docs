@@ -11,6 +11,6 @@ export const en: NavbarConfig = [
   },
   {
     text: 'Newsletter',
-    link: 'https://blog.uptrace.dev/newsletter/',
+    link: 'https://blog.uptrace.dev/pages/newsletter.html',
   },
 ]

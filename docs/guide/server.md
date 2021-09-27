@@ -90,25 +90,6 @@ get := rdb.Get(ctx, "key")
 fmt.Println(get.Val(), get.Err())
 ```
 
-When appropriate, commands provide helper methods:
-
-```go
-// Shortcut for get.Val().(string) with proper error handling.
-s, err := get.Text()
-
-num, err := get.Int()
-
-num, err := get.Int64()
-
-num, err := get.Uint64()
-
-num, err := get.Float32()
-
-num, err := get.Float64()
-
-flag, err := get.Bool()
-```
-
 ## Executing unsupported commands
 
 To execute arbitrary/custom command:
@@ -123,6 +104,27 @@ if err != nil {
 	panic(err)
 }
 fmt.Println(val.(string))
+```
+
+`Do` returns a [Cmd](https://pkg.go.dev/github.com/go-redis/redis/v8#Cmd) struct that has a bunch of
+helpers to work with `interface{}` value:
+
+```go
+// Shortcut for get.Val().(string) with proper error handling.
+s, err := cmd.Text()
+num, err := cmd.Int()
+num, err := cmd.Int64()
+num, err := cmd.Uint64()
+num, err := cmd.Float32()
+num, err := cmd.Float64()
+flag, err := cmd.Bool()
+
+ss, err := cmd.StringSlice()
+ns, err := cmd.Int64Slice()
+ns, err := cmd.Uint64Slice()
+fs, err := cmd.Float32Slice()
+fs, err := cmd.Float64Slice()
+bs, err := cmd.BoolSlice()
 ```
 
 ## Pipelines

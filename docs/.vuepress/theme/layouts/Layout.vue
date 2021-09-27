@@ -4,16 +4,16 @@
       <div class="spacer"></div>
 
       <div class="d-none d-sm-block">
-        <span>Blog: </span>
-        <a href="https://blog.uptrace.dev/posts/opentelemetry-metrics-cache-stats/" target="_blank"
-          >Monitoring cache stats using OpenTelemetry Metrics</a
-        >
+        <span class="emoji">&#9889;</span>
+        <a :href="link.href" :target="link.href.startsWith('/') ? '_self' : '_blank'">{{
+          link.text
+        }}</a>
       </div>
 
       <div class="spacer"></div>
 
       <div class="links">
-        <a href="https://uptrace.dev/" target="_blank">Tracing tool</a>
+        <a href="https://uptrace.dev/" target="_blank">Tracing & Metrics</a>
         <a href="https://bun.uptrace.dev/" target="_blank">SQL client</a>
         <a href="https://blog.uptrace.dev/" target="_blank">Blog</a>
       </div>
@@ -23,11 +23,43 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
 import Layout from '@vuepress/theme-default/lib/client/layouts/Layout.vue'
 
 export default {
   components: {
     Layout,
+  },
+
+  setup() {
+    const link = ref(randLink())
+
+    onMounted(() => {
+      setInterval(() => {
+        link.value = randLink()
+      }, 30000)
+    })
+
+    function randLink() {
+      const links = [
+        {
+          text: 'Monitoring cache stats using OpenTelemetry Metrics',
+          href: 'https://blog.uptrace.dev/posts/opentelemetry-metrics-cache-stats.html',
+        },
+        {
+          text: 'Get latest updates right to your email',
+          href: 'https://blog.uptrace.dev/pages/newsletter.html',
+        },
+        {
+          text: 'Investigating and improving Redis performance',
+          href: '/guide/performance.html',
+        },
+      ]
+
+      return links[Math.floor(Math.random() * links.length)]
+    }
+
+    return { link }
   },
 }
 </script>
@@ -90,5 +122,10 @@ a {
     color: #fff;
     text-decoration: underline;
   }
+}
+
+.emoji {
+  font-size: 1.1rem;
+  padding-right: 6px;
 }
 </style>

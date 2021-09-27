@@ -13,7 +13,7 @@ export default defineUserConfig<DefaultThemeOptions>({
 
   theme: path.resolve(__dirname, './theme'),
   themeConfig: {
-    logo: '/redis.svg',
+    logo: '/favicon-32x32.png',
 
     locales: {
       '/': {
