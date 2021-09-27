@@ -1,4 +1,8 @@
-# Rate-limiting
+---
+title: Rate-limiting
+---
+
+# Leacky-bucket rate-limiting with Redis
 
 [go-redis/redis_rate](https://github.com/go-redis/redis_rate) library implements a leaky bucket
 scheduling algorithm (AKA generic cell rate algorithm). You can install it with:
@@ -7,8 +11,8 @@ scheduling algorithm (AKA generic cell rate algorithm). You can install it with:
 go get github.com/go-redis/redis_rate/v9
 ```
 
-redis_rate accepts an interface to communicate with Redis and thus supports all types of Redis
-clients that go-redis provides.
+redis_rate accepts an interface to communicate with Redis and thus supports all flavors of go-redis
+clients.
 
 ```go
 rdb := redis.NewClient(&redis.Options{

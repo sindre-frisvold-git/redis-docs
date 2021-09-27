@@ -54,6 +54,10 @@ export default {
           text: 'Investigating and improving Redis performance',
           href: '/guide/performance.html',
         },
+        {
+          text: 'Redis Lua scripting',
+          href: '/guide/lua-scripting.html',
+        },
       ]
 
       return links[Math.floor(Math.random() * links.length)]
