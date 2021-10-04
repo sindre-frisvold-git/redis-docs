@@ -39,8 +39,9 @@ rdb := redis.NewClient(&redis.Options{
 })
 ```
 
-If you are getting "x509: cannot validate certificate for xxx.xxx.xxx.xxx because it doesn't contain
-any IP SANs", try to set `ServerName` option:
+If you are getting
+`x509: cannot validate certificate for xxx.xxx.xxx.xxx because it doesn't contain any IP SANs`, try
+to set `ServerName` option:
 
 ```go
 rdb := redis.NewClient(&redis.Options{
@@ -54,7 +55,7 @@ rdb := redis.NewClient(&redis.Options{
 ## redis.Nil
 
 go-redis exports the `redis.Nil` error and returns it whenever Redis Server responds with `(nil)`.
-You can check with redis-cli what response Redis returns.
+You can use redis-cli to check what response Redis returns.
 
 In the following example we use `redis.Nil` to distinguish an empty string reply and a nil reply
 (key does not exist):
@@ -71,8 +72,8 @@ case val == "":
 }
 ```
 
-GET is not the only command that returns nil reply. For example, BLPOP and ZSCORE can also return
-it.
+`GET` is not the only command that returns nil reply, for example, `BLPOP` and `ZSCORE` can also
+return `redis.Nil`.
 
 ## Executing commands
 
@@ -167,11 +168,11 @@ To wrap commands with MULTI and EXEC commands, use `TxPipelined` / `TxPipeline`.
 
 ## Transactions and Watch
 
-With Redis [transactions](https://redis.io/topics/transactions) you can watch for changes in keys
+Using Redis [transactions](https://redis.io/topics/transactions), you can watch for changes in keys
 and commit a transaction only if the keys don't change.
 
-In the following example we implement [INCR](https://redis.io/commands/INCR) command using GET, SET,
-and WATCH. Note how we use `redis.TxFailedErr` to check if a transaction has failed or not.
+In the following example we implement [INCR](https://redis.io/commands/INCR) command using `GET`,
+`SET`, and `WATCH`. Note how we use `redis.TxFailedErr` to check if a transaction has failed or not.
 
 ```go
 const maxRetries = 1000
@@ -260,4 +261,24 @@ ch := pubsub.Channel()
 for msg := range ch {
 	fmt.Println(msg.Channel, msg.Payload)
 }
+```
+
+## Conn
+
+Conn represents a single Redis connection rather than a pool of connections. Prefer running commands
+from Client unless there is a specific need for a continuous single Redis connection.
+
+```go
+cn := rdb.Conn(ctx)
+defer cn.Close()
+
+if err := cn.ClientSetName(ctx, "myclient").Err(); err != nil {
+	panic(err)
+}
+
+name, err := cn.ClientGetName(ctx).Result()
+if err != nil {
+	panic(err)
+}
+fmt.Println("client name", name)
 ```

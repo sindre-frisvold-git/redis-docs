@@ -24,8 +24,8 @@ You can find the source code for the examples below at
 ## Bloom vs. Cuckoo
 
 Bloom and cuckoo filters are probabilistic data structures that report whether an item has been seen
-before (is a member of a set). Both use hash functions and can report false positives (but not false
-negatives) due to hash collisions.
+before (is a member of a set). Both filters use hash functions and can report false positives due to
+hash collisions (but not false negatives).
 
 From the [docs](https://oss.redis.com/redisbloom/#bloom-vs-cuckoo):
 
@@ -50,7 +50,8 @@ OK
 ## Bloom and Cuckoo
 
 You can execute Redis Bloom [commands](https://oss.redis.com/redisbloom/Bloom_Commands/) using
-general `Do` command processing pipeline and [Cmd]() helpers:
+general [Do](https://pkg.go.dev/github.com/go-redis/redis/v8#Client.Do) function and then retrieve
+the result with [Cmd](https://pkg.go.dev/github.com/go-redis/redis/v8#Cmd) helpers:
 
 ```go
 func bloomFilter(ctx context.Context, rdb *redis.Client) {

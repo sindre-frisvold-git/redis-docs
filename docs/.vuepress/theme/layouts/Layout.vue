@@ -58,6 +58,10 @@ export default {
           text: 'Redis Lua scripting',
           href: '/guide/lua-scripting.html',
         },
+        {
+          text: 'BunRouter is an extremely fast and flexible HTTP router',
+          href: 'https://bunrouter.uptrace.dev/',
+        },
       ]
 
       return links[Math.floor(Math.random() * links.length)]

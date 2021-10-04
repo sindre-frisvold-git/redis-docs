@@ -4,13 +4,32 @@
 
 To improve performance, go-redis automatically manages a pool of network connections (sockets). By
 default, the pool size is 10 connections per every available CPU as reported by
-`runtime.GOMAXPROCS`. In most cases that is more than enough and tweaking it rarely helps.
+`runtime.GOMAXPROCS`. In most cases, that is more than enough and tweaking it rarely helps.
 
 ```go
 rdb := redis.NewClient(&redis.Options{
     PoolSize: 1000,
 })
 ```
+
+### redis: connection pool timeout
+
+You can get that error when there are no free connections in the pool for `Options.PoolTimeout`
+duration. If you are using `redis.PubSub` or `redis.Conn`, make sure to properly release
+`PuSub`/`Conn` resources by calling `Close` method when they are not needed any more.
+
+You can also get that error when Redis processes commands too slowly and all connections in the pool
+are blocked for more than `PoolTimeout` duration.
+
+## Timeouts
+
+Even if you are using `context.Context` deadlines, do NOT disable `DialTimeout`, `ReadTimeout`, and
+`WriteTimeout`, because go-redis executes some background checks without using a context and instead
+relies on connection timeouts.
+
+If you are using cloud providers like AWS or Google Cloud, don't use timeouts smaller than 1 second.
+Such small timeouts work well most of the time, but fail miserably when cloud is slower than
+usually.
 
 ## Pipelines
 
@@ -23,7 +42,7 @@ If your app logic does not allow using pipelines, consider adding a local in-pro
 ## Hardware
 
 Make sure that your servers have good network latency and fast CPUs with large caches. If you have
-multiple CPU cores, consuder running multiple Redis instances on a single server.
+multiple CPU cores, consider running multiple Redis instances on a single server.
 
 See
 [Factors impacting Redis performance](https://redis.io/topics/benchmarks#factors-impacting-redis-performance)
