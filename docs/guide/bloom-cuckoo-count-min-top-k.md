@@ -115,8 +115,9 @@ func cuckooFilter(ctx context.Context, rdb *redis.Client) {
 
 ## Count-Min sketch
 
-Count-Min Sketch is a probabilistic data structure for computing approximate counts using hash
-functions. It may overcount some items due to hash collisions.
+[Count-Min Sketch](https://oss.redis.com/redisbloom/CountMinSketch_Commands/) is a probabilistic
+data structure for computing approximate counts using hash functions. It may overcount some items
+due to hash collisions.
 
 ```go
 func countMinSketch(ctx context.Context, rdb *redis.Client) {
@@ -149,8 +150,8 @@ func countMinSketch(ctx context.Context, rdb *redis.Client) {
 
 ## Top-K
 
-A top-k maintains a list of `k` most frequently seen items. It uses probabilistic counters and may
-undercount some items.
+A [top-k](https://oss.redis.com/redisbloom/TopK_Commands/) maintains a list of `k` most frequently
+seen items. It uses probabilistic counters and may undercount some items.
 
 ```go
 func topK(ctx context.Context, rdb *redis.Client) {

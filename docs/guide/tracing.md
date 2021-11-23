@@ -3,14 +3,14 @@
 ## Monitoring go-redis client
 
 You can monitor Redis performance and errors using
-[distributed tracing](https://docs.uptrace.dev/guide/tracing.html). Tracing allows you to see how a
-request progresses through different services and systems, timings of every operation, any logs and
-errors as they occur.
+[distributed tracing](https://opentelemetry.uptrace.dev/guide/distributed-tracing.html). Tracing
+allows you to see how a request progresses through different services and systems, timings of every
+operation, any logs and errors as they occur.
 
-go-redis supports tracing using [OpenTelemetry](https://opentelemetry.io/) API. OpenTelemetry is a
-vendor-neutral API for distributed traces and metrics. It specifies how to collect and send
-telemetry data to backend platforms. It means that you can instrument your application once and then
-add or change vendors (backends) as required.
+go-redis supports tracing using OpenTelemetry API. OpenTelemetry is a vendor-neutral API for
+distributed traces and metrics. It specifies how to collect and send telemetry data to backend
+platforms. It means that you can instrument your application once and then add or change vendors
+(backends) as required.
 
 go-redis comes with an OpenTelemetry instrumentation called
 [redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel) that is distributed as a
@@ -49,9 +49,9 @@ rdb := redis.NewClusterClient(&redis.ClusterOptions{
 rdb.AddHook(redisotel.NewTracingHook())
 ```
 
-As expected, redisotel creates [spans](https://docs.uptrace.dev/guide/tracing.html#spans) for
-processed Redis commands and records any errors as they occur. Here is how the collected information
-is displayed at
+As expected, redisotel creates
+[spans](https://opentelemetry.uptrace.dev/guide/distributed-tracing.html#spans) for processed Redis
+commands and records any errors as they occur. Here is how the collected information is displayed at
 [Uptrace](https://uptrace.dev/explore/1/groups/?system=db%3Aredis&utm_source=redis&utm_campaign=redis-tracing):
 
 ![Redis trace](/img/redis-trace.png)
@@ -61,4 +61,4 @@ If you need an example, see [GitHub](https://github.com/go-redis/redis/tree/mast
 ## Monitoring Redis Server
 
 See
-[Monitoring Redis Server with OpenTelemetry Collector](https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis/).
+[Monitoring Redis Server with OpenTelemetry Collector](https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis.html).

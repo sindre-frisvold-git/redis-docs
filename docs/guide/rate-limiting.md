@@ -30,12 +30,12 @@ fmt.Println("allowed", res.Allowed, "remaining", res.Remaining)
 ```
 
 The following example demonstrates how to use redis_rate in a
-[treemux](https://github.com/vmihailenco/treemux/tree/master/example/rate-limiting) middleware for
+[bunrouter](https://github.com/uptrace/bunrouter/tree/master/example/rate-limiting) middleware for
 HTTP rate limiting:
 
 ```go
-func rateLimit(next treemux.HandlerFunc) treemux.HandlerFunc {
-    return func(w http.ResponseWriter, req treemux.Request) error {
+func rateLimit(next bunrouter.HandlerFunc) bunrouter.HandlerFunc {
+    return func(w http.ResponseWriter, req bunrouter.Request) error {
         res, err := limiter.Allow(req.Context(), "project:123", redis_rate.PerMinute(10))
         if err != nil {
             return err

@@ -12,12 +12,12 @@ The following articles should help you get started with Lua scripting in Redis:
 - [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
 - [EVAL](https://redis.io/commands/eval)
 
-## NewScript
+## redis.Script
 
 go-redis supports Lua scripting via
-[redis.Script](https://pkg.go.dev/github.com/go-redis/redis/v8#Script) struct. For
-[example](https://github.com/go-redis/redis/tree/master/example/lua-scripting), the following Lua
-script implements `INCRBY` command using `GET` and `SET` commands:
+[redis.Script](https://pkg.go.dev/github.com/go-redis/redis/v8#Script) struct, for
+[example](https://github.com/go-redis/redis/tree/master/example/lua-scripting), the following script
+implements `INCRBY` command in Lua using `GET` and `SET` commands:
 
 ```go
 var incrBy = redis.NewScript(`
@@ -51,21 +51,22 @@ a leacky bucket [rate-limiter](rate-limiting.md).
 
 ## Lua and Go types
 
-Lua's `number` type is a `float64` number that is used to store both ints and floats. Because of
-that, Redis always converts Lua numbers into ints discarding the decimal part, for example, `3.14`
-becomes `3`. If you want to return a float value, return it as a string and parse the string in Go
-using [Float64](https://pkg.go.dev/github.com/go-redis/redis/v8#Cmd.Float64) helper.
+Underneath, Lua's `number` type is a `float64` number that is used to store both ints and floats.
+Because Lua does not distinguish ints and floats, Redis always converts Lua numbers into ints
+discarding the decimal part, for example, `3.14` becomes `3`. If you want to return a float value,
+return it as a string and parse the string in Go using
+[Float64](https://pkg.go.dev/github.com/go-redis/redis/v8#Cmd.Float64) helper.
 
-| Lua return                   | Go interface{}                    |
-| ---------------------------- | --------------------------------- |
-| `number` (float64)           | `int64` (decimal is discarded)    |
-| `string`                     | `string`                          |
-| `false`                      | `redis.Nil` error                 |
-| `true`                       | `int64(1)`                        |
-| `{ok = "status"}`            | `string("status")`                |
-| `{err = "error message"}`    | `errors.New("error message")`     |
-| `{"foo", "bar"}`             | `[]interface{}{"foo", "bar"}`     |
-| `{foo = "bar", bar = "baz"}` | `[]interface{}{}` (not supported) |
+| Lua return                   | Go interface{}                      |
+| ---------------------------- | ----------------------------------- |
+| `number` (float64)           | `int64` (decimal part is discarded) |
+| `string`                     | `string`                            |
+| `false`                      | `redis.Nil` error                   |
+| `true`                       | `int64(1)`                          |
+| `{ok = "status"}`            | `string("status")`                  |
+| `{err = "error message"}`    | `errors.New("error message")`       |
+| `{"foo", "bar"}`             | `[]interface{}{"foo", "bar"}`       |
+| `{foo = "bar", bar = "baz"}` | `[]interface{}{}` (not supported)   |
 
 ## Debugging Lua scripts
 
@@ -80,8 +81,7 @@ If you prefer a debugger, check [Redis Lua scripts debugger](https://redis.io/to
 
 ## Passing multiple values
 
-You can use Lua `for` loop to iterate over the passed values. For example, to sum the passed
-numbers:
+You can use `for` loop in Lua to iterate over the passed values, for example, to sum the numbers:
 
 ```lua
 local key = KEYS[1]
@@ -131,7 +131,7 @@ end
 ## Error handling
 
 By default, `redis.call` function raises a Lua error and stops program execution. If you want to
-handle errors, use `redis.pcall` function which returns a Lua table with an `err` field:
+handle errors, use `redis.pcall` function which returns a Lua table with `err` field:
 
 ```lua
 local result = redis.pcall("rename", "foo", "bar")

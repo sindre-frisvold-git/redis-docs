@@ -4,7 +4,11 @@ title: Redis Cluster
 
 # Go client for Redis Cluster
 
-To connect to a [Redis Cluster](https://redis.io/topics/cluster-tutorial):
+go-redis comes with a client for [Redis Cluster](https://redis.io/topics/cluster-tutorial).
+Underneath, `redis.ClusterClient` uses `redis.Client` to comminucate with each node in a cluster.
+Each `redis.Client` maintains a separate pool of connections.
+
+To connect to a Redis Cluster:
 
 ```go
 import "github.com/go-redis/redis/v8"

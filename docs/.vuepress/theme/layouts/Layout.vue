@@ -3,7 +3,7 @@
     <div class="system-bar system-bar--fixed">
       <div class="spacer"></div>
 
-      <div class="d-none d-sm-block">
+      <div v-if="link" class="d-none d-sm-block">
         <span class="emoji">&#9889;</span>
         <a :href="link.href" :target="link.href.startsWith('/') ? '_self' : '_blank'">{{
           link.text
@@ -13,7 +13,7 @@
       <div class="spacer"></div>
 
       <div class="links">
-        <a href="https://uptrace.dev/" target="_blank">Tracing & Metrics</a>
+        <a href="https://opentelemetry.uptrace.dev/" target="_blank">Tracing & Metrics</a>
         <a href="https://bun.uptrace.dev/" target="_blank">SQL client</a>
         <a href="https://blog.uptrace.dev/" target="_blank">Blog</a>
       </div>
@@ -22,9 +22,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, onMounted } from 'vue'
+
 import Layout from '@vuepress/theme-default/lib/client/layouts/Layout.vue'
+
+interface Link {
+  text: string
+  href: string
+}
 
 export default {
   components: {
@@ -32,19 +38,21 @@ export default {
   },
 
   setup() {
-    const link = ref(randLink())
+    const link = ref<Link>()
 
     onMounted(() => {
+      link.value = randLink()
+
       setInterval(() => {
-        link.value = randLink()
+        link.value = randLink(link.value.href)
       }, 30000)
     })
 
-    function randLink() {
+    function randLink(currHref = '') {
       const links = [
         {
-          text: 'Monitoring cache stats using OpenTelemetry Metrics',
-          href: 'https://blog.uptrace.dev/posts/opentelemetry-metrics-cache-stats.html',
+          text: 'Monitoring Redis Server with OpenTelemetry Collector',
+          href: 'https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis.html',
         },
         {
           text: 'Get latest updates right to your email',
@@ -64,7 +72,14 @@ export default {
         },
       ]
 
-      return links[Math.floor(Math.random() * links.length)]
+      for (let i = 0; i < 100; i++) {
+        const link = links[Math.floor(Math.random() * links.length)]
+        if (link.href !== currHref) {
+          return link
+        }
+      }
+
+      return links[0]
     }
 
     return { link }

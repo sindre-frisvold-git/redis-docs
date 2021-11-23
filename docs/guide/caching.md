@@ -4,6 +4,34 @@ title: Caching
 
 # Caching using Redis
 
+[[toc]]
+
+## Redis config
+
+To start using Redis as a cache storage, use the following Redis config:
+
+```
+# Required
+
+# Set a memory usage limit to the specified amount of bytes.
+# When the memory limit is reached Redis will try to remove keys
+# according to the eviction policy selected (see maxmemory-policy).
+maxmemory 100mb
+
+# Optional
+
+# Evict any key using approximated LFU when maxmemory is reached.
+maxmemory-policy allkeys-lfu
+
+# Enable active defragmentation.
+activedefrag yes
+
+# Disable snapshotting because we can afford to lose cached data.
+save ""
+```
+
+## go-redis/cache
+
 [go-redis/cache](https://github.com/go-redis/cache) library implements a cache using Redis as a
 key/value storage. It uses [MessagePack](https://github.com/vmihailenco/msgpack) to marshal values.
 
@@ -52,6 +80,8 @@ mycache := cache.New(&cache.Options{
     LocalCache: cache.NewTinyLFU(10000, time.Minute),
 })
 ```
+
+## Cache monitoring
 
 If you are interested in monitoring cache hit rate, see the guide for
 [Monitoring using OpenTelemetry Metrics](https://blog.uptrace.dev/posts/opentelemetry-metrics-cache-stats/).
