@@ -12,6 +12,7 @@ export const en: SidebarConfig = {
         '/guide/sentinel.md',
         '/guide/ring.md',
         '/guide/universal.md',
+        '/guide/pipelines.md',
         '/guide/lua-scripting.md',
       ],
     },

@@ -1,5 +1,10 @@
 # Redis Ring
 
+<!-- prettier-ignore -->
+::: tip
+To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+:::
+
 ## Introduction
 
 Ring is a Redis client that uses consistent hashing to distribute keys across multiple Redis servers

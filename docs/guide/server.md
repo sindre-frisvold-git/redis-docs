@@ -107,18 +107,26 @@ if err != nil {
 fmt.Println(val.(string))
 ```
 
-`Do` returns a [Cmd](https://pkg.go.dev/github.com/go-redis/redis/v8#Cmd) struct that has a bunch of
+`Do` returns a [Cmd](https://pkg.go.dev/github.com/go-redis/redis/v8#Cmd) that has a bunch of
 helpers to work with `interface{}` value:
 
 ```go
-// Shortcut for get.Val().(string) with proper error handling.
+// Text is a shortcut for get.Val().(string) with proper error handling.
+val, err := rdb.Do(ctx, "get", "key").Text()
+fmt.Println(val, err)
+```
+
+The full list of helpers:
+
+```go
 s, err := cmd.Text()
+flag, err := cmd.Bool()
+
 num, err := cmd.Int()
 num, err := cmd.Int64()
 num, err := cmd.Uint64()
 num, err := cmd.Float32()
 num, err := cmd.Float64()
-flag, err := cmd.Bool()
 
 ss, err := cmd.StringSlice()
 ns, err := cmd.Int64Slice()
@@ -126,94 +134,6 @@ ns, err := cmd.Uint64Slice()
 fs, err := cmd.Float32Slice()
 fs, err := cmd.Float64Slice()
 bs, err := cmd.BoolSlice()
-```
-
-## Pipelines
-
-To execute multiple commands in a single write/read pipeline:
-
-```go
-var incr *redis.IntCmd
-_, err := rdb.Pipelined(ctx, func(pipe redis.Pipeliner) error {
-	incr = pipe.Incr(ctx, "pipelined_counter")
-	pipe.Expire(ctx, "pipelined_counter", time.Hour)
-	return nil
-})
-if err != nil {
-	panic(err)
-}
-
-// The value is available only after pipeline is executed.
-fmt.Println(incr.Val())
-```
-
-Alternatively you can create and execute pipeline manually:
-
-```go
-pipe := rdb.Pipeline()
-
-incr := pipe.Incr(ctx, "pipeline_counter")
-pipe.Expire(ctx, "pipeline_counter", time.Hour)
-
-_, err := pipe.Exec(ctx)
-if err != nil {
-	panic(err)
-}
-
-// The value is available only after Exec.
-fmt.Println(incr.Val())
-```
-
-To wrap commands with MULTI and EXEC commands, use `TxPipelined` / `TxPipeline`.
-
-## Transactions and Watch
-
-Using Redis [transactions](https://redis.io/topics/transactions), you can watch for changes in keys
-and commit a transaction only if the keys don't change.
-
-In the following example we implement [INCR](https://redis.io/commands/INCR) command using `GET`,
-`SET`, and `WATCH`. Note how we use `redis.TxFailedErr` to check if a transaction has failed or not.
-
-```go
-const maxRetries = 1000
-
-// Increment transactionally increments key using GET and SET commands.
-increment := func(key string) error {
-	// Transactional function.
-	txf := func(tx *redis.Tx) error {
-		// Get current value or zero.
-		n, err := tx.Get(ctx, key).Int()
-		if err != nil && err != redis.Nil {
-			return err
-		}
-
-		// Actual operation (local in optimistic lock).
-		n++
-
-		// Operation is commited only if the watched keys remain unchanged.
-		_, err = tx.TxPipelined(ctx, func(pipe redis.Pipeliner) error {
-			pipe.Set(ctx, key, n, 0)
-			return nil
-		})
-		return err
-	}
-
-	for i := 0; i < maxRetries; i++ {
-		err := rdb.Watch(ctx, txf, key)
-		if err == nil {
-			// Success.
-			return nil
-		}
-		if err == redis.TxFailedErr {
-			// Optimistic lock lost. Retry.
-			continue
-		}
-		// Return any other error.
-		return err
-	}
-
-	return errors.New("increment reached maximum number of retries")
-}
 ```
 
 ## PubSub
@@ -282,3 +202,8 @@ if err != nil {
 }
 fmt.Println("client name", name)
 ```
+
+## See also
+
+- [Pipelines, WATCH and transactions](pipelines.html)
+- [Redis Lua scripting](lua-scripting.html)

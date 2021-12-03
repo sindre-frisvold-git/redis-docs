@@ -1,4 +1,4 @@
-# Investigating and improving Redis performance
+# Investigating Redis performance
 
 ## Connection pool size
 
@@ -34,10 +34,10 @@ usually.
 ## Pipelines
 
 Because go-redis spends most of the time writing/reading/waiting data from connections, you can
-improve performance by sending multiple commands at once using [pipelines](server.md#pipelines).
+improve performance by sending multiple commands at once using [pipelines](pipelines.html).
 
 If your app logic does not allow using pipelines, consider adding a local in-process
-[cache](caching.md) (such as TinyLFU) for the most popular operations.
+[cache](caching.html) (such as TinyLFU) for the most popular operations.
 
 ## Hardware
 
@@ -54,9 +54,9 @@ If nothing helps, you can split data across multiple Redis instances so that eac
 a subset of the keys. This way the load is spread across multiple servers and you can increase
 performance by adding more servers.
 
-[Ring](ring.md) is a good option if you are using Redis for caching. Otherwise, you can try
-[Redis Cluster](cluster.md).
+[Ring](ring.html) is a good option if you are using Redis for caching. Otherwise, you can try
+[Redis Cluster](cluster.html).
 
 ## Monitoring
 
-See [Monitoring performance and errors](tracing.md).
+See [Monitoring performance and errors](tracing.html).

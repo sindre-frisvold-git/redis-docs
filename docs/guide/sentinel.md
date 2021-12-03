@@ -1,5 +1,10 @@
 # Redis Sentinel
 
+<!-- prettier-ignore -->
+::: tip
+To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+:::
+
 ## Redis Server client
 
 To connect to a Redis Server managed by a [Redis Sentinel](https://redis.io/topics/sentinel):

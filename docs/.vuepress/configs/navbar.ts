@@ -9,8 +9,4 @@ export const en: NavbarConfig = [
     text: 'GitHub',
     link: 'https://github.com/go-redis/redis',
   },
-  {
-    text: 'Newsletter',
-    link: 'https://blog.uptrace.dev/pages/newsletter.html',
-  },
 ]

@@ -14,6 +14,7 @@ export default defineUserConfig<DefaultThemeOptions>({
   theme: path.resolve(__dirname, './theme'),
   themeConfig: {
     logo: '/favicon-32x32.png',
+    darkMode: false,
 
     locales: {
       '/': {
@@ -29,6 +30,15 @@ export default defineUserConfig<DefaultThemeOptions>({
   },
 
   evergreen: isProd,
+  bundlerConfig: {
+    configureWebpack: (config) => {
+      config.module.rules.push({
+        test: /\.mjs$/i,
+        resolve: { byDependency: { esm: { fullySpecified: false } } },
+      })
+      return {}
+    },
+  },
 
   markdown: {
     code: {

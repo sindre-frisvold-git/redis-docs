@@ -4,6 +4,11 @@ title: Redis Cluster
 
 # Go client for Redis Cluster
 
+<!-- prettier-ignore -->
+::: tip
+To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+:::
+
 go-redis comes with a client for [Redis Cluster](https://redis.io/topics/cluster-tutorial).
 Underneath, `redis.ClusterClient` uses `redis.Client` to comminucate with each node in a cluster.
 Each `redis.Client` maintains a separate pool of connections.

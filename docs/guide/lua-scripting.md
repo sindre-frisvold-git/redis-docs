@@ -14,8 +14,8 @@ The following articles should help you get started with Lua scripting in Redis:
 
 ## redis.Script
 
-go-redis supports Lua scripting via
-[redis.Script](https://pkg.go.dev/github.com/go-redis/redis/v8#Script) struct, for
+go-redis supports Lua scripting with
+[redis.Script](https://pkg.go.dev/github.com/go-redis/redis/v8#Script), for
 [example](https://github.com/go-redis/redis/tree/master/example/lua-scripting), the following script
 implements `INCRBY` command in Lua using `GET` and `SET` commands:
 
@@ -43,6 +43,9 @@ keys := []string{"my_counter"}
 values := []interface{}{+1}
 num, err := incrBy.Run(ctx, rdb, keys, values...).Int()
 ```
+
+Internally, go-redis uses [EVALSHA](https://redis.io/commands/evalsha) to execute the script and
+fallbacks to [EVAL](https://redis.io/commands/eval) if the script does not exist.
 
 You can find the example above at
 [GitHub](https://github.com/go-redis/redis/tree/master/example/lua-scripting). For a more realistic

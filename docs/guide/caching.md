@@ -10,8 +10,9 @@ title: Caching
 
 To start using Redis as a cache storage, use the following Redis config:
 
-```
+```shell
 # Required
+##########
 
 # Set a memory usage limit to the specified amount of bytes.
 # When the memory limit is reached Redis will try to remove keys
@@ -19,14 +20,15 @@ To start using Redis as a cache storage, use the following Redis config:
 maxmemory 100mb
 
 # Optional
+##########
 
 # Evict any key using approximated LFU when maxmemory is reached.
 maxmemory-policy allkeys-lfu
 
-# Enable active defragmentation.
+# Enable active memory defragmentation.
 activedefrag yes
 
-# Disable snapshotting because we can afford to lose cached data.
+# Don't save data on the disk because we can afford to lose cached data.
 save ""
 ```
 
