@@ -31,6 +31,25 @@ If you are using cloud providers like AWS or Google Cloud, don't use timeouts sm
 Such small timeouts work well most of the time, but fail miserably when cloud is slower than
 usually.
 
+## Large number of open connections
+
+Under high load, some commands will time out and go-redis will close such connections because they
+can still receive some data later and can't be reused. Closed connections are first put into
+`TIME_WAIT` state and remain there for double maximum segment life time which is usually 1 minute:
+
+```shell
+cat /proc/sys/net/ipv4/tcp_fin_timeout
+60
+```
+
+To cope with that, you can increase read/write timeouts or upgrade your servers to handle more
+traffic. You can also increase the maximum number of open connections, but that will not make your
+servers or network faster.
+
+Also see
+[Coping with the TCP TIME-WAIT](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux#summary)
+for some advices.
+
 ## Pipelines
 
 Because go-redis spends most of the time writing/reading/waiting data from connections, you can

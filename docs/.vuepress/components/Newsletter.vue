@@ -1,7 +1,18 @@
 <template>
-  <div style="padding-bottom: 8px">Get insights and updates in your inbox:</div>
+  <div style="padding-bottom: 8px">
+    Get
+    <a href="/img/newsletter.png" target="_blank" title="Example issue">insights and updates</a> in
+    your inbox:
+  </div>
 
-  <el-form :key="mounted" ref="formRef" :model="form.data" :rules="form.rules" inline>
+  <el-form
+    v-if="!form.done"
+    :key="mounted"
+    ref="formRef"
+    :model="form.data"
+    :rules="form.rules"
+    inline
+  >
     <el-form-item prop="email" style="width: 220px">
       <el-input
         v-model="form.data.email"
@@ -12,15 +23,13 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button v-if="!form.done" type="primary" :loading="form.loading" @click="form.submit">
-        Subscribe
-      </el-button>
-      <el-button v-else type="success" :loading="form.loading" @click="form.submit">
-        <el-icon class="el-icon--left"><Check /></el-icon>
-        Subscribed
-      </el-button>
+      <el-button type="primary" :loading="form.loading" @click="form.submit"> Subscribe </el-button>
     </el-form-item>
   </el-form>
+  <el-tag v-else type="success" effect="dark">
+    <el-icon class="el-icon--left"><Check /></el-icon>
+    Subscribed
+  </el-tag>
 </template>
 
 <script lang="ts">
@@ -79,6 +88,7 @@ function useForm(form: Ref) {
     axios
       .post('https://api.uptrace.dev/api/v1/go-newsletter/subscription', {
         email: data.email,
+        source: 'redis',
       })
       .then(() => {
         done.value = true
