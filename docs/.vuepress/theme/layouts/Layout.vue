@@ -13,24 +13,27 @@
       <div class="spacer"></div>
 
       <div class="links">
-        <a href="https://opentelemetry.uptrace.dev/" target="_blank">Tracing & Metrics</a>
-        <a href="https://bun.uptrace.dev/" target="_blank">SQL client</a>
+        <a href="https://get.uptrace.dev/" target="_blank">Tracing tool</a>
+        <a href="https://bun.uptrace.dev/" target="_blank">Golang ORM</a>
+        <a href="https://clickhouse.uptrace.dev/" target="_blank">Golang ClickHouse</a>
         <a href="https://blog.uptrace.dev/" target="_blank">Blog</a>
       </div>
     </div>
     <Layout>
       <template #page-bottom>
         <div
-          class="theme-default-content d-flex align-center justify-space-between"
+          class="theme-default-content d-flex justify-space-between"
           style="padding-top: 40px; padding-bottom: 0"
         >
-          <div style="margin-right: 30px">
-            <a href="https://uptrace.dev/" target="_blank" title="Distributed tracing and metrics">
-              <img src="/uptrace/logo-large.svg" style="width: 175px; margin-bottom: 22px" />
+          <div>
+            <a href="https://uptrace.dev/" target="_blank" title="Distributed tracing tool">
+              <img src="/uptrace/logo-text.svg" style="width: 200px" />
             </a>
           </div>
           <div>
-            <Newsletter />
+            <ClientOnly>
+              <Newsletter />
+            </ClientOnly>
           </div>
         </div>
       </template>
@@ -63,7 +66,7 @@ export default {
 
       setInterval(() => {
         link.value = randLink(link.value.href)
-      }, 30000)
+      }, 10000)
     })
 
     function randLink(currHref = '') {
@@ -81,12 +84,20 @@ export default {
           href: '/guide/performance.html',
         },
         {
-          text: 'Redis Lua scripting',
-          href: '/guide/lua-scripting.html',
-        },
-        {
           text: 'BunRouter is an extremely fast and flexible HTTP router',
           href: 'https://bunrouter.uptrace.dev/',
+        },
+        {
+          text: 'ClickHouse client for Go',
+          href: 'https://clickhouse.uptrace.dev/',
+        },
+        {
+          text: 'Getting started with Gin, GORM, OpenTelemetry, and Uptrace',
+          href: 'https://get.uptrace.dev/opentelemetry/gin-gorm.html',
+        },
+        {
+          text: '@uptracedev: we tweet about Go, OpenTelemetry, ClickHouse, and more',
+          href: 'https://twitter.com/uptracedev',
         },
       ]
 
@@ -138,7 +149,7 @@ export default {
 
 .links ::v-deep(a) {
   display: inline-block;
-  padding-left: 32px;
+  padding-left: 26px;
 }
 
 a {

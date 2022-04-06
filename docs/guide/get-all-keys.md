@@ -2,6 +2,8 @@
 title: Get all keys
 ---
 
+<UptraceCta />
+
 # Get or scan/iterate over all keys
 
 ## Iterating over keys
@@ -106,5 +108,3 @@ if err := iter.Err(); err != nil {
 
 For a more efficient version that uses pipelines see the
 [example](https://github.com/go-redis/redis/tree/master/example/del-keys-without-ttl).
-
-<UptraceBanner />

@@ -8,8 +8,8 @@ const isProd = process.env.NODE_ENV === 'production'
 
 export default defineUserConfig<DefaultThemeOptions>({
   lang: 'en-US',
-  title: 'go-redis',
-  description: 'Go client for Redis Server and Redis Cluster',
+  title: 'Go Redis',
+  description: 'Golang client for Redis Server and Redis Cluster',
 
   theme: path.resolve(__dirname, './theme'),
   themeConfig: {
@@ -30,6 +30,7 @@ export default defineUserConfig<DefaultThemeOptions>({
   },
 
   evergreen: isProd,
+  bundler: '@vuepress/bundler-webpack',
   bundlerConfig: {
     configureWebpack: (config) => {
       config.module.rules.push({
@@ -47,7 +48,6 @@ export default defineUserConfig<DefaultThemeOptions>({
   },
 
   plugins: [
-    ['@vuepress/plugin-debug'],
     ['@vuepress/plugin-google-analytics', { id: 'G-WS7W97P9KS' }],
     [
       '@vuepress/plugin-register-components',
@@ -55,7 +55,9 @@ export default defineUserConfig<DefaultThemeOptions>({
         componentsDir: path.resolve(__dirname, './components'),
       },
     ],
+    ['@vuepress/plugin-search'],
     ['vuepress-plugin-sitemap2', { hostname: 'https://redis.uptrace.dev' }],
+    require('./uptrace-plugin'),
   ],
   clientAppEnhanceFiles: path.resolve(__dirname, './clientAppEnhance.ts'),
 })

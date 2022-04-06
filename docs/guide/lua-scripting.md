@@ -2,6 +2,8 @@
 title: Lua scripting
 ---
 
+<UptraceCta />
+
 # Redis Lua scripting
 
 ## Getting started

@@ -1,4 +1,4 @@
-# Redis Sentinel
+# Golang client for Redis Sentinel
 
 <!-- prettier-ignore -->
 ::: tip

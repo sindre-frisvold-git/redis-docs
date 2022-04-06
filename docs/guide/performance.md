@@ -1,5 +1,7 @@
 # Investigating Redis performance
 
+<UptraceCta />
+
 ## Connection pool size
 
 To improve performance, go-redis automatically manages a pool of network connections (sockets). By
@@ -29,7 +31,9 @@ relies on connection timeouts.
 
 If you are using cloud providers like AWS or Google Cloud, don't use timeouts smaller than 1 second.
 Such small timeouts work well most of the time, but fail miserably when cloud is slower than
-usually.
+usually. See
+[Go Context timeouts can be harmful](https://blog.uptrace.dev/posts/go-context-timeout.html) for
+details.
 
 ## Large number of open connections
 
@@ -55,8 +59,10 @@ for some advices.
 Because go-redis spends most of the time writing/reading/waiting data from connections, you can
 improve performance by sending multiple commands at once using [pipelines](pipelines.html).
 
-If your app logic does not allow using pipelines, consider adding a local in-process
-[cache](caching.html) (such as TinyLFU) for the most popular operations.
+## Cache
+
+If your app logic does not allow using [pipelines](#pipelines), consider adding a local in-process
+[cache](caching.html) for the most popular operations, for example, using TinyLFU.
 
 ## Hardware
 

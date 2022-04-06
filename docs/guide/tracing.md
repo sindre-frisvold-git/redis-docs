@@ -2,15 +2,13 @@
 
 ## Monitoring go-redis client
 
-You can monitor Redis performance and errors using
-[distributed tracing](https://opentelemetry.uptrace.dev/guide/distributed-tracing.html). Tracing
-allows you to see how a request progresses through different services and systems, timings of every
-operation, any logs and errors as they occur.
+go-redis relies on OpenTelemetry to monitor database performance and errors using
+[distributed tracing](https://opentelemetry.uptrace.dev/guide/distributed-tracing.html) and
+[metrics](https://opentelemetry.uptrace.dev/guide/metrics.html).
 
-go-redis supports tracing using OpenTelemetry API. OpenTelemetry is a vendor-neutral API for
-distributed traces and metrics. It specifies how to collect and send telemetry data to backend
-platforms. It means that you can instrument your application once and then add or change vendors
-(backends) as required.
+[OpenTelemetry](https://opentelemetry.uptrace.dev/) is a vendor-neutral API for distributed traces
+and metrics. It specifies how to collect and send telemetry data to backend platforms. It means that
+you can instrument your application once and then add or change vendors (backends) as required.
 
 go-redis comes with an OpenTelemetry instrumentation called
 [redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel) that is distributed as a
@@ -49,6 +47,15 @@ rdb := redis.NewClusterClient(&redis.ClusterOptions{
 rdb.AddHook(redisotel.NewTracingHook())
 ```
 
+To make tracing work, you must pass the active
+[trace context](https://opentelemetry.uptrace.dev/guide/go-tracing.html#context) to go-redis
+commands, for example:
+
+```go
+ctx := req.Context()
+val, err := rdb.Get(ctx, "key").Result()
+```
+
 As expected, redisotel creates
 [spans](https://opentelemetry.uptrace.dev/guide/distributed-tracing.html#spans) for processed Redis
 commands and records any errors as they occur. Here is how the collected information is displayed at
@@ -56,9 +63,11 @@ commands and records any errors as they occur. Here is how the collected informa
 
 ![Redis trace](/img/redis-trace.png)
 
-If you need an example, see [GitHub](https://github.com/go-redis/redis/tree/master/example/otel).
+You can find a runnable example at
+[GitHub](https://github.com/go-redis/redis/tree/master/example/otel).
 
-## Monitoring Redis Server
+## See also
 
-See
-[Monitoring Redis Server with OpenTelemetry Collector](https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis.html).
+- [Monitoring Redis Server with OpenTelemetry Collector](https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis.html)
+- [Open Source distributed tracing tools](https://get.uptrace.dev/compare/distributed-tracing-tools.html)
+- [OpenTelemetry guide for Gin, GORM, and Zap](https://get.uptrace.dev/opentelemetry/gin-gorm.html)

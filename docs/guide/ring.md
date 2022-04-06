@@ -85,3 +85,7 @@ ring := redis.NewRing(&redis.RingOptions{
     },
 })
 ```
+
+## See also
+
+!!!include(include/see-also.md)!!!

@@ -2,7 +2,7 @@
 title: Caching
 ---
 
-# Caching using Redis
+# Golang Redis Cache
 
 [[toc]]
 

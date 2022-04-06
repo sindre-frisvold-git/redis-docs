@@ -2,7 +2,7 @@
 title: Pipelines and transactions
 ---
 
-# Redis pipelines, WATCH and transactions
+# Golang Redis pipelines, WATCH, and transactions
 
 ## Speeding up Redis with pipelines
 

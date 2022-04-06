@@ -1,4 +1,10 @@
-# Getting started
+---
+title: Getting started
+---
+
+# Go client for Redis
+
+[[toc]]
 
 ## Connecting to Redis Server
 
@@ -27,8 +33,8 @@ rdb := redis.NewClient(opt)
 
 ### Using TLS
 
-To enable TLS/SSL, you need to provide a `tls.Config`. If you're using private certs, you need to
-[specify](https://pkg.go.dev/crypto/tls#example-LoadX509KeyPair) them in the `tls.Config`.
+To enable TLS/SSL, you need to provide an empty `tls.Config`. If you're using private certs, you
+need to [specify](https://pkg.go.dev/crypto/tls#example-LoadX509KeyPair) them in the `tls.Config`.
 
 ```go
 rdb := redis.NewClient(&redis.Options{
@@ -51,6 +57,51 @@ rdb := redis.NewClient(&redis.Options{
 	},
 })
 ```
+
+### Over SSH
+
+To connect over SSH channel:
+
+```go
+sshConfig := &ssh.ClientConfig{
+	User:			 "root",
+	Auth:			 []ssh.AuthMethod{ssh.Password("password")},
+	HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	Timeout:		 15 * time.Second,
+}
+
+sshClient, err := ssh.Dial("tcp", "remoteIP:22", sshConfig)
+if err != nil {
+	panic(err)
+}
+
+rdb := redis.NewClient(&redis.Options{
+	Addr: net.JoinHostPort("127.0.0.1", "6379"),
+	Dialer: func(ctx context.Context, network, addr string) (net.Conn, error) {
+		return sshClient.Dial(network, addr)
+	},
+	// Disable timeouts, because SSH does not support deadlines.
+	ReadTimeout:  -1,
+	WriteTimeout: -1,
+})
+```
+
+### dial tcp: i/o timeout
+
+You get `dial tcp: i/o timeout` error when go-redis can't connect to the Redis Server, for example,
+when the server is down or the port is protected by a firewall. To check if Redis Server is
+listening on the port, run telnet command on the host where the go-redis client is running:
+
+```shell
+telnet localhost 6379
+Trying 127.0.0.1...
+telnet: Unable to connect to remote host: Connection refused
+```
+
+If you use Docker, Istio, or any other service mesh / sidecar, make sure the app starts after the
+container is fully available, for example, by configuring
+[healthchecks](https://docs.docker.com/engine/reference/run/#healthcheck) with Docker and
+`holdApplicationUntilProxyStarts` with Istio.
 
 ## redis.Nil
 
@@ -136,53 +187,6 @@ fs, err := cmd.Float64Slice()
 bs, err := cmd.BoolSlice()
 ```
 
-## PubSub
-
-go-redis allows to publish messages and subscribe to channels. It also automatically handles
-reconnects.
-
-To publish a message:
-
-```go
-err := rdb.Publish(ctx, "mychannel1", "payload").Err()
-if err != nil {
-	panic(err)
-}
-```
-
-To subscribe to a channel:
-
-```go
-// There is no error because go-redis automatically reconnects on error.
-pubsub := rdb.Subscribe(ctx, "mychannel1")
-
-// Close the subscription when we are done.
-defer pubsub.Close()
-```
-
-To receive a message:
-
-```go
-for {
-	msg, err := pubsub.ReceiveMessage(ctx)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(msg.Channel, msg.Payload)
-}
-```
-
-But the simplest way is using a Go channel which is closed together with subscription:
-
-```go
-ch := pubsub.Channel()
-
-for msg := range ch {
-	fmt.Println(msg.Channel, msg.Payload)
-}
-```
-
 ## Conn
 
 Conn represents a single Redis connection rather than a pool of connections. Prefer running commands
@@ -205,5 +209,4 @@ fmt.Println("client name", name)
 
 ## See also
 
-- [Pipelines, WATCH and transactions](pipelines.html)
-- [Redis Lua scripting](lua-scripting.html)
+!!!include(include/see-also.md)!!!

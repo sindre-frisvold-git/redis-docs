@@ -1,4 +1,8 @@
-# Introduction
+---
+title: Introduction
+---
+
+# Go Redis client
 
 ## Installation
 
