@@ -1,8 +1,8 @@
 ---
-title: go-redis vs redigo
+title: go-redis vs redigo [pros and cons in 2022]
 ---
 
-# Comparing go-redis vs redigo
+<CoverImage title="Comparing go-redis vs redigo" />
 
 The main difference between 2 projects is that go-redis provides type-safe API for each Redis
 command but redigo uses print-like API:

@@ -1,8 +1,8 @@
 ---
-title: Introduction
+title: Go Redis client
 ---
 
-# Go Redis client
+<CoverImage title="Redis client for Go" />
 
 ## Installation
 
@@ -35,7 +35,7 @@ go get github.com/go-redis/redis/v8
 
 - [Redis Mock](https://github.com/go-redis/redismock).
 - [Distributed Locks](https://github.com/bsm/redislock).
-- [Redis Cache](https://github.com/go-redis/cache).
-- [Rate limiting](https://github.com/go-redis/redis_rate).
+- [Redis Cache](go-redis-cache.html).
+- [Redis Rate limiting](go-redis-rate-limiting.html).
 
 Please send a PR if you want to add your package to the list.

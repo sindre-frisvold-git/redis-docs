@@ -1,4 +1,8 @@
-# Universal client
+---
+title: Redis Universal client
+---
+
+<CoverImage title="Redis Universal client" />
 
 <!-- prettier-ignore -->
 ::: tip

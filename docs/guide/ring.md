@@ -1,9 +1,15 @@
-# Redis Ring
+---
+title: Redis Ring
+---
+
+<CoverImage title="Redis Ring" />
 
 <!-- prettier-ignore -->
 ::: tip
 To get an idea how to use go-redis client, see [Getting started](server.md) guide.
 :::
+
+[[toc]]
 
 ## Introduction
 
@@ -54,6 +60,8 @@ if err != nil {
     panic(err)
 }
 ```
+
+## Per shard options
 
 To change shard connection options:
 

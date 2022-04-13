@@ -1,3 +1,3 @@
-- [Go Redis Pipelines, WATCH and transactions](pipelines.html)
-- [Go Redis PubSub](pubsub.html)
+- [Go Redis Pipelines, WATCH and transactions](go-redis-pipelines.html)
+- [Go Redis PubSub](go-redis-pubsub.html)
 - [Redis Lua scripting](lua-scripting.html)

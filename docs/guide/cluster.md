@@ -1,8 +1,8 @@
 ---
-title: Redis Cluster
+title: Go client for Redis Cluster
 ---
 
-# Go client for Redis Cluster
+<CoverImage title="Go client for Redis Cluster" />
 
 <!-- prettier-ignore -->
 ::: tip

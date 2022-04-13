@@ -1,0 +1,4 @@
+<script>
+var anchor = window.location.hash.substr(1);
+location.href = "https://redis.uptrace.dev/guide/go-redis-cache.html" + (anchor ? "#" + anchor : "");
+</script>

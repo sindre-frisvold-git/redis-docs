@@ -1,10 +1,10 @@
 ---
-title: Get all keys
+title: 'Redis: Get All Keys [with examples]'
 ---
 
 <UptraceCta />
 
-# Get or scan/iterate over all keys
+<CoverImage title="Redis: get/scan/iterate all keys" />
 
 ## Iterating over keys
 

@@ -15,6 +15,7 @@ export default defineUserConfig<DefaultThemeOptions>({
   themeConfig: {
     logo: '/favicon-32x32.png',
     darkMode: false,
+    contributors: false,
 
     locales: {
       '/': {
@@ -23,10 +24,9 @@ export default defineUserConfig<DefaultThemeOptions>({
         editLinkText: 'Edit this page on GitHub',
       },
     },
-
-    themePlugins: {
-      git: false,
-    },
+  },
+  alias: {
+    '@public': path.resolve(__dirname, './public'),
   },
 
   evergreen: isProd,
@@ -57,6 +57,15 @@ export default defineUserConfig<DefaultThemeOptions>({
     ],
     ['@vuepress/plugin-search'],
     ['vuepress-plugin-sitemap2', { hostname: 'https://redis.uptrace.dev' }],
+    [
+      'vuepress-plugin-seo2',
+      {
+        hostname: 'https://redis.uptrace.dev',
+        canonical(page) {
+          return 'https://redis.uptrace.dev' + page.path
+        },
+      },
+    ],
     require('./uptrace-plugin'),
   ],
   clientAppEnhanceFiles: path.resolve(__dirname, './clientAppEnhance.ts'),

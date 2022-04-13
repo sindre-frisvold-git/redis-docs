@@ -1,4 +1,8 @@
-# Bloom, Cuckoo, Count-Min, Top-K
+---
+title: 'Redis: Bloom, Cuckoo, Count-Min, Top-K'
+---
+
+<CoverImage title="Redis: Bloom, Cuckoo, Count-Min, Top-K" />
 
 ## RedisBloom
 

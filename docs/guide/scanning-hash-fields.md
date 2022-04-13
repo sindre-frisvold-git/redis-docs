@@ -1,4 +1,8 @@
-# Scanning hash fields into a struct
+---
+title: 'Redis: Scanning hash fields into a struct'
+---
+
+<CoverImage title="Scanning hash fields into a struct" />
 
 Commands that return multiple keys and values provide a helper to scan results into a struct, for
 example, such commands as `HGetAll`, `HMGet`, and `MGet`.

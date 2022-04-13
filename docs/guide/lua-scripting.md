@@ -1,10 +1,10 @@
 ---
-title: Lua scripting
+title: Go Redis Lua Scripting in 2022
 ---
 
 <UptraceCta />
 
-# Redis Lua scripting
+<CoverImage title="Go Redis Lua Scripting" />
 
 ## Getting started
 

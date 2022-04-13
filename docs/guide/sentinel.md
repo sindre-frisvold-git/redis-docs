@@ -1,4 +1,8 @@
-# Golang client for Redis Sentinel
+---
+title: Golang client for Redis Sentinel
+---
+
+<CoverImage title="Golang client for Redis Sentinel" />
 
 <!-- prettier-ignore -->
 ::: tip

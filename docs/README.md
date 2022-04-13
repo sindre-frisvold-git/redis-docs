@@ -7,7 +7,7 @@ actions:
     link: /guide/
     type: primary
   - text: Getting started
-    link: /guide/server.md
+    link: /guide/go-redis.html
     type: secondary
 
 features:
@@ -23,7 +23,7 @@ features:
       We support pipelines, transactions, publish/subscribe, Lua scripts, mocks, distributed locks,
       and more.
 
-footer: Copyright © 2021 Go-Redis Authors
+footer: Copyright © 2022 Go-Redis Authors
 ---
 
 ```go

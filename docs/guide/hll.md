@@ -1,47 +1,20 @@
 ---
-title: HyperLogLog
+head:
+  - - meta
+    - name: robots
+      content: noindex
+  - - meta
+    - name: http-equiv
+      content: 0; url=https://redis.uptrace.dev/guide/go-redis-hll.html
+  - - link
+    - rel: canonical
+      href: https://redis.uptrace.dev/guide/go-redis-hll.html
+  - - script
+    - {}
+    - 'var
+      anchor=window.location.hash.substr(1);location.href="https://redis.uptrace.dev/guide/go-redis-hll.html"+(anchor?"#"+anchor:"")'
+navbar: false
+sidebar: false
+sitemap:
+  exclude: true
 ---
-
-# Using HyperLogLog command with go-redis
-
-HyperLogLog is a data structure that you can use to count approximate number of distinct elements in
-a set. Redis supports HyperLogLog via 2 commands:
-
-- [PFADD](https://redis.io/commands/pfadd) adds elements to a set.
-- [PFCOUNT](https://redis.io/commands/pfcount) returns the approximate number of distinct elements
-  or, in other words, the approximated set cardinality.
-
-For [example](https://github.com/go-redis/redis/tree/master/example/hll):
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-
-	"github.com/go-redis/redis/v8"
-)
-
-func main() {
-	ctx := context.Background()
-
-	rdb := redis.NewClient(&redis.Options{
-		Addr: ":6379",
-	})
-	_ = rdb.FlushDB(ctx).Err()
-
-	for i := 0; i < 10; i++ {
-		if err := rdb.PFAdd(ctx, "myset", fmt.Sprint(i)).Err(); err != nil {
-			panic(err)
-		}
-	}
-
-	card, err := rdb.PFCount(ctx, "myset").Result()
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println("set cardinality", card)
-}
-```
