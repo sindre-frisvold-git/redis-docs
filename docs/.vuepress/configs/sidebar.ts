@@ -7,9 +7,9 @@ export const en: SidebarConfig = {
       text: 'Guide',
       children: [
         { text: 'Introduction', link: '/guide/' },
-        { text: 'Getting started', link: '/guide/server.html' },
-        { text: 'Redis Cluster', link: '/guide/cluster.html' },
-        { text: 'Redis Sentinel', link: '/guide/sentinel.html' },
+        { text: 'Getting started', link: '/guide/go-redis.html' },
+        { text: 'Redis Cluster', link: '/guide/go-redis-cluster.html' },
+        { text: 'Redis Sentinel', link: '/guide/go-redis-sentinel.html' },
         { text: 'Redis Ring', link: '/guide/ring.html' },
         { text: 'Universal client', link: '/guide/universal.html' },
         { text: 'Pipelines and transactions', link: '/guide/go-redis-pipelines.html' },

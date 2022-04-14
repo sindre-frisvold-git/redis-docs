@@ -25,11 +25,11 @@ go get github.com/go-redis/redis/v8
 [go-redis](https://github.com/go-redis/redis) provides Go clients for various flavors of
 [Redis](https://redis.io/):
 
-- [Redis Server client](server.md)
-- [Redis Cluster client](cluster.md)
-- [Redis Sentinel client](sentinel.md)
-- [Redis Ring client](ring.md)
-- [Univeral client](universal.md)
+- [Redis Server client](go-redis.html)
+- [Redis Cluster client](go-redis-cluster.html)
+- [Redis Sentinel client](go-redis-sentinel.html)
+- [Redis Ring client](ring.html)
+- [Redis Univeral client](universal.html)
 
 ## Ecosystem
 
