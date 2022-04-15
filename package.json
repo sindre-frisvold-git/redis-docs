@@ -31,8 +31,8 @@
     "vite": "^2.6.14",
     "vue-prism-component": "^2.0.0",
     "vuepress": "2.0.0-beta.38",
-    "vuepress-plugin-seo2": "2.0.0-beta.40",
-    "vuepress-plugin-sitemap2": "2.0.0-beta.40",
-    "vuepress-plugin-redirect2": "2.0.0-beta.40"
+    "vuepress-plugin-seo2": "2.0.0-beta.41",
+    "vuepress-plugin-sitemap2": "2.0.0-beta.41",
+    "vuepress-plugin-redirect2": "2.0.0-beta.41"
   }
 }

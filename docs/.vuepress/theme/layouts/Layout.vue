@@ -72,10 +72,6 @@ export default {
     function randLink(currHref = '') {
       const links = [
         {
-          text: 'Monitoring Redis Server with OpenTelemetry Collector',
-          href: 'https://blog.uptrace.dev/posts/opentelemetry-collector-monitoring-redis.html',
-        },
-        {
           text: 'Get latest updates right to your email',
           href: 'https://blog.uptrace.dev/pages/newsletter.html',
         },

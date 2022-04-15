@@ -1,6 +1,6 @@
 ---
 home: true
-title: Go client for Redis Server and Redis Cluster
+title: Golang Redis client
 
 actions:
   - text: Introduction
