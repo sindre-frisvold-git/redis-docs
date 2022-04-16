@@ -6,9 +6,21 @@ title: Go Redis [getting started guide]
 
 [[toc]]
 
-## Introduction
+## Installation
 
-[go-redis](https://github.com/go-redis/redis) is a Redis client for Golang.
+go-redis supports 2 last Go versions and only works with
+[Go modules](https://github.com/golang/go/wiki/Modules). So first you need to initialize a Go
+module:
+
+```shell
+go mod init github.com/my/repo
+```
+
+And then install redis/v8 (note **v8** in the import path):
+
+```shell
+go get github.com/go-redis/redis/v8
+```
 
 ## Connecting to Redis Server
 
@@ -107,34 +119,13 @@ container is fully available, for example, by configuring
 [healthchecks](https://docs.docker.com/engine/reference/run/#healthcheck) with Docker and
 `holdApplicationUntilProxyStarts` with Istio.
 
-## redis.Nil
-
-go-redis exports the `redis.Nil` error and returns it whenever Redis Server responds with `(nil)`.
-You can use redis-cli to check what response Redis returns.
-
-In the following example we use `redis.Nil` to distinguish an empty string reply and a nil reply
-(key does not exist):
-
-```go
-val, err := rdb.Get(ctx, "key").Result()
-switch {
-case err == redis.Nil:
-	fmt.Println("key does not exist")
-case err != nil:
-	fmt.Println("Get failed", err)
-case val == "":
-	fmt.Println("value is empty")
-}
-```
-
-`GET` is not the only command that returns nil reply, for example, `BLPOP` and `ZSCORE` can also
-return `redis.Nil`.
-
 ## Executing commands
 
 To execute a command:
 
 ```go
+ctx := context.Background()
+
 val, err := rdb.Get(ctx, "key").Result()
 fmt.Println(val)
 ```
@@ -191,6 +182,29 @@ fs, err := cmd.Float64Slice()
 bs, err := cmd.BoolSlice()
 ```
 
+## redis.Nil
+
+go-redis exports the `redis.Nil` error and returns it whenever Redis Server responds with `(nil)`.
+You can use redis-cli to check what response Redis returns.
+
+In the following example we use `redis.Nil` to distinguish an empty string reply and a nil reply
+(key does not exist):
+
+```go
+val, err := rdb.Get(ctx, "key").Result()
+switch {
+case err == redis.Nil:
+	fmt.Println("key does not exist")
+case err != nil:
+	fmt.Println("Get failed", err)
+case val == "":
+	fmt.Println("value is empty")
+}
+```
+
+`GET` is not the only command that returns nil reply, for example, `BLPOP` and `ZSCORE` can also
+return `redis.Nil`.
+
 ## Conn
 
 Conn represents a single Redis connection rather than a pool of connections. Prefer running commands
@@ -213,4 +227,4 @@ fmt.Println("client name", name)
 
 ## See also
 
-!!!include(include/see-also.md)!!!
+!!!include(see-also.md)!!!

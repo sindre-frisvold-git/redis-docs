@@ -4,32 +4,22 @@ title: Go Redis client
 
 <CoverImage title="Redis client for Go" />
 
-## Installation
+## Why go-redis?
 
-go-redis supports 2 last Go versions and only works with
-[Go modules](https://github.com/golang/go/wiki/Modules). So first you need to initialize a Go
-module:
-
-```shell
-go mod init github.com/my/repo
-```
-
-And then install redis/v8 (note **v8** in the import path):
-
-```shell
-go get github.com/go-redis/redis/v8
-```
+See [Comparing go-redis vs redigo](/guide/go-redis-vs-redigo.html).
 
 ## Clients
 
-[go-redis](https://github.com/go-redis/redis) provides Go clients for various flavors of
-[Redis](https://redis.io/):
+[go-redis](https://github.com/go-redis/redis) provides Go clients for various flavors of Redis:
 
-- [Redis Server client](go-redis.html)
+- [Getting started with go-redis](go-redis.html)
 - [Redis Cluster client](go-redis-cluster.html)
 - [Redis Sentinel client](go-redis-sentinel.html)
 - [Redis Ring client](ring.html)
 - [Redis Univeral client](universal.html)
+
+This client also works with [kvrocks](https://github.com/KvrocksLabs/kvrocks), a distributed key
+value NoSQL database that uses RocksDB as storage engine and is compatible with Redis protocol.
 
 ## Ecosystem
 
@@ -38,4 +28,4 @@ go get github.com/go-redis/redis/v8
 - [Redis Cache](go-redis-cache.html).
 - [Redis Rate limiting](go-redis-rate-limiting.html).
 
-Please send a PR if you want to add your package to the list.
+Send a PR if you want to add your package to the list or promote your Redis-related project.
