@@ -2,6 +2,8 @@
 title: Golang Redis Pipelines, WATCH, and Transactions
 ---
 
+<UptraceCta />
+
 <CoverImage title="Golang Redis Pipelines, WATCH, and Transactions" />
 
 ## Speeding up Redis with pipelines

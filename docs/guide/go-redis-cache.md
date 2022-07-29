@@ -2,6 +2,8 @@
 title: Golang Redis Cache
 ---
 
+<UptraceCta />
+
 <CoverImage title="Golang Redis Cache" />
 
 [[toc]]

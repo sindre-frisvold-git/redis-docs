@@ -27,7 +27,7 @@ const uptracePlugin: Plugin = {
 
       const hrefAttr = token.attrs![hrefIndex]
       const hrefLink = hrefAttr[1]
-      if (hrefLink.includes('uptrace')) {
+      if (hrefLink.includes('uptrace.dev')) {
         return self.renderToken(tokens, idx, options)
       }
 

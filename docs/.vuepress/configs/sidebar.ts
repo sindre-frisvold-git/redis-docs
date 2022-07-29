@@ -21,7 +21,7 @@ export const en: SidebarConfig = {
       text: 'Tutorial',
       children: [
         { text: 'Debugging: pool size, timeouts', link: '/guide/go-redis-debugging.html' },
-        { text: 'Monitoring Redis Performance', link: '/guide/redis-performance-monitoring.html' },
+        { text: 'Monitoring performance and errors', link: '/guide/go-redis-monitoring.html' },
         { text: 'Redis Cache', link: '/guide/go-redis-cache.html' },
         { text: 'Lua scripting', link: '/guide/lua-scripting.html' },
         { text: 'Rate-limiting', link: '/guide/go-redis-rate-limiting.html' },

@@ -16,10 +16,16 @@ module:
 go mod init github.com/my/repo
 ```
 
-And then install redis/v8 (note **v8** in the import path):
+If you are using **Redis 6**, install go-redis/**v8**:
 
 ```shell
 go get github.com/go-redis/redis/v8
+```
+
+If you are using **Redis 7**, install go-redis/**v9** (currently in beta):
+
+```shell
+go get github.com/go-redis/redis/v9
 ```
 
 ## Connecting to Redis Server
@@ -119,13 +125,21 @@ container is fully available, for example, by configuring
 [healthchecks](https://docs.docker.com/engine/reference/run/#healthcheck) with Docker and
 `holdApplicationUntilProxyStarts` with Istio.
 
+## Context
+
+Every Redis command accepts a context that you can use to set
+[timeouts](go-redis-debugging.html#timeouts) or propagate some information, for example,
+[tracing context](redis-performance-monitoring.html).
+
+```go
+ctx := context.Background()
+```
+
 ## Executing commands
 
 To execute a command:
 
 ```go
-ctx := context.Background()
-
 val, err := rdb.Get(ctx, "key").Result()
 fmt.Println(val)
 ```

@@ -61,12 +61,13 @@ for some advices.
 ## Pipelines
 
 Because go-redis spends most of the time writing/reading/waiting data from connections, you can
-improve performance by sending multiple commands at once using [pipelines](go-redis-pipelines.html).
+improve performance by sending multiple commands at once using
+[pipelines](/guide/go-redis-pipelines.html).
 
 ## Cache
 
 If your app logic does not allow using [pipelines](#pipelines), consider adding a local in-process
-[cache](caching.html) for the most popular operations, for example, using TinyLFU.
+[cache](/guide/go-redis-cache.html) for the most popular operations, for example, using TinyLFU.
 
 ## Hardware
 
@@ -83,9 +84,9 @@ If nothing helps, you can split data across multiple Redis instances so that eac
 a subset of the keys. This way the load is spread across multiple servers and you can increase
 performance by adding more servers.
 
-[Ring](ring.html) is a good option if you are using Redis for caching. Otherwise, you can try
-[Redis Cluster](cluster.html).
+[Ring](/guide/ring.html) is a good option if you are using Redis for caching. Otherwise, you can try
+[Redis Cluster](/guide/go-redis-cluster.html).
 
 ## Monitoring
 
-See [Monitoring Redis Performance using OpenTelemetry](redis-performance-monitoring.html).
+See [Monitoring Redis Performance using OpenTelemetry](go-redis-monitoring.html).
