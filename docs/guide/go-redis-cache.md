@@ -2,8 +2,6 @@
 title: Golang Redis Cache
 ---
 
-<UptraceCta />
-
 <CoverImage title="Golang Redis Cache" />
 
 [[toc]]
@@ -89,3 +87,7 @@ mycache := cache.New(&cache.Options{
 
 If you are interested in monitoring cache hit rate, see the guide for
 [Monitoring using OpenTelemetry Metrics](https://blog.uptrace.dev/posts/opentelemetry-metrics-cache-stats/).
+
+## Monitoring Performance
+
+!!!include(uptrace.md)!!!

@@ -35,7 +35,10 @@ export default defineUserConfig<DefaultThemeOptions>({
     '@public': path.resolve(__dirname, './public'),
   },
 
-  evergreen: isProd,
+  evergreen: !isProd,
+  shouldPreload: false,
+  shouldPrefetch: false,
+
   bundler: webpackBundler({
     configureWebpack: (config) => {
       config.module.rules.push({
@@ -74,8 +77,8 @@ export default defineUserConfig<DefaultThemeOptions>({
         '/universal/index.html': '/guide/universal.html',
         '/tracing/index.html': '/guide/redis-performance-monitoring.html',
         '/caching/index.html': '/guide/go-redis-cache.html',
-        '/rate-limiting/': '/guide/go-redis-rate-limiting.html',
-        '/get-all-keys/': '/guide/get-all-keys.html',
+        '/rate-limiting/index.html': '/guide/go-redis-rate-limiting.html',
+        '/get-all-keys/index.html': '/guide/get-all-keys.html',
 
         '/guide/cluster.html': '/guide/go-redis-cluster.html',
         '/guide/caching.html': '/guide/go-redis-cache.html',

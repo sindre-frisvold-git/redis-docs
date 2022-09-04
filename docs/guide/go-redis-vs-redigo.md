@@ -6,7 +6,7 @@ title: go-redis vs redigo [pros and cons in 2022]
 
 | Feature                                                            | [go-redis][1]      | [redigo][2]        |
 | ------------------------------------------------------------------ | ------------------ | ------------------ |
-| GitHub stars                                                       | 14k+               | 9k+                |
+| GitHub stars                                                       | 15k+               | 9k+                |
 | Type-safe                                                          | :heavy_check_mark: | :x:                |
 | Connection pooling                                                 | Automatic          | Manual             |
 | Custom commands                                                    | :heavy_check_mark: | :heavy_check_mark: |
@@ -49,7 +49,7 @@ _, err := conn.Do(...)
 conn.Close()
 ```
 
-But if you need to manage connections manually, go-redis allows you to do that:
+But if you need to manage connections manually, go-redis allows you to do that as well:
 
 ```go
 // go-redis manual connection management

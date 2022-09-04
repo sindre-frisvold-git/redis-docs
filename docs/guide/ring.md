@@ -6,7 +6,7 @@ title: Redis Ring
 
 <!-- prettier-ignore -->
 ::: tip
-To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+To get an idea how to use go-redis client, see [Getting started](go-redis.html) guide.
 :::
 
 [[toc]]
@@ -23,8 +23,8 @@ available to the client and does not do any coordination with other clients when
 changed.
 
 Ring should be used when you need multiple Redis servers for caching and can tolerate losing data
-when one of the servers dies. Otherwise you should use [Redis Cluster](cluster.md) or
-[Redis Server](server.md).
+when one of the servers dies. Otherwise you should use [Redis Cluster](go-redis-cluster.html) or
+[Redis Server](go-redis.html).
 
 ## Quickstart
 

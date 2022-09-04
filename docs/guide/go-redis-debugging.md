@@ -2,9 +2,9 @@
 title: 'Debugging Go Redis: pool size, timeouts'
 ---
 
-<UptraceCta />
-
 <CoverImage title="Debugging Go Redis" />
+
+[[toc]]
 
 ## Connection pool size
 
@@ -80,12 +80,12 @@ for more details.
 
 ## Sharding
 
-If nothing helps, you can split data across multiple Redis instances so that each instance contains
-a subset of the keys. This way the load is spread across multiple servers and you can increase
-performance by adding more servers.
+You can also split data across multiple Redis instances so that each instance contains a subset of
+the keys. This way the load is spread across multiple servers and you can increase performance by
+adding more servers.
 
-[Ring](/guide/ring.html) is a good option if you are using Redis for caching. Otherwise, you can try
-[Redis Cluster](/guide/go-redis-cluster.html).
+[Redis Ring](/guide/ring.html) is a good option if you are using Redis for caching and can afford
+losing some data. Otherwise, you can try [Redis Cluster](/guide/go-redis-cluster.html).
 
 ## Monitoring
 

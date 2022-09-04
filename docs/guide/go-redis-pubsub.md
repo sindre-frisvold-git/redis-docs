@@ -48,3 +48,7 @@ for msg := range ch {
 	fmt.Println(msg.Channel, msg.Payload)
 }
 ```
+
+## Monitoring Performance
+
+!!!include(uptrace.md)!!!

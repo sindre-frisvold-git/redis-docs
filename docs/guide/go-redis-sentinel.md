@@ -6,7 +6,7 @@ title: Golang client for Redis Sentinel
 
 <!-- prettier-ignore -->
 ::: tip
-To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+To get an idea how to use go-redis client, see [Getting started](go-redis.html) guide.
 :::
 
 ## Redis Server client

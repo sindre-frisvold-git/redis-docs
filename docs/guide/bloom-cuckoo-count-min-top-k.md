@@ -4,6 +4,8 @@ title: 'Redis: Bloom, Cuckoo, Count-Min, Top-K'
 
 <CoverImage title="Redis: Bloom, Cuckoo, Count-Min, Top-K" />
 
+[[toc]]
+
 ## RedisBloom
 
 [RedisBloom](https://oss.redis.com/redisbloom/Quick_Start/#building) is a Redis module that adds

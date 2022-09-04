@@ -6,10 +6,10 @@ title: Redis Universal client
 
 <!-- prettier-ignore -->
 ::: tip
-To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+To get an idea how to use go-redis client, see [Getting started](go-redis.html) guide.
 :::
 
-`UniversalClient` is an abstract client which - based on the provided options - represents either a
+`UniversalClient` is a wrapper client which, based on the provided options, represents either a
 `ClusterClient`, a `FailoverClient`, or a single-node `Client`. This can be useful for testing
 cluster-specific applications locally or having different clients in different environments.
 

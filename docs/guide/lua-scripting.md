@@ -2,17 +2,9 @@
 title: Go Redis Lua Scripting in 2022
 ---
 
-<UptraceCta />
-
 <CoverImage title="Go Redis Lua Scripting" />
 
-## Getting started
-
-The following articles should help you get started with Lua scripting in Redis:
-
-- [Lua crash course](https://www.coppeliarobotics.com/helpFiles/en/luaCrashCourse.htm)
-- [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
-- [EVAL](https://redis.io/commands/eval)
+[[toc]]
 
 ## redis.Script
 
@@ -150,3 +142,15 @@ To return a custom error, use a Lua table:
 ```lua
 return {err = "error message goes here"}
 ```
+
+## Monitoring Performance
+
+!!!include(uptrace.md)!!!
+
+## See also
+
+The following guides can help you get started with Lua scripting in Redis:
+
+- [Lua crash course](https://www.coppeliarobotics.com/helpFiles/en/luaCrashCourse.htm)
+- [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
+- [EVAL](https://redis.io/commands/eval)

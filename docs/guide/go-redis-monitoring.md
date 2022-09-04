@@ -13,9 +13,8 @@ title: Go Redis Monitoring Performance [OpenTelemetry 2022]
 and errors) and [metrics](https://uptrace.dev/opentelemetry/metrics.html).
 
 Otel allows developers to collect and export telemetry data in a vendor agnostic way. With
-OpenTelemetry, you can [instrument](https://uptrace.dev/opentelemetry/instrumentations/) your
-application once and then add or change vendors without changing the instrumentation, for example,
-here is a list
+OpenTelemetry, you can instrument your application once and then add or change vendors without
+changing the instrumentation, for example, here is a list
 [popular DataDog alternatives](https://uptrace.dev/get/compare/datadog-competitors.html) that
 support OpenTelemetry.
 
@@ -72,18 +71,15 @@ val, err := rdb.Get(ctx, "key").Result()
 
 ## Uptrace
 
-[Uptrace](https://uptrace.dev/) is an open source
-[DataDog competitor](https://uptrace.dev/get/compare/datadog-competitors.html) with an intuitive
-query builder, rich dashboards, automatic alerts, and integrations for most languages and
-frameworks.
+Uptrace is an open source APM tool with an intuitive query builder, rich dashboards, automatic
+alerts, and integrations for most languages and frameworks.
 
-You can [install Uptrace](https://uptrace.dev/get/opentelemetry-tracing-tool.html) by downloading a
-DEB/RPM package or a pre-compiled binary.
+You can [install Uptrace](https://uptrace.dev/get/install.html) by downloading a DEB/RPM package or
+a pre-compiled binary.
 
 As expected, redisotel creates
 [spans](https://uptrace.dev/opentelemetry/distributed-tracing.html#spans) for processed Redis
-commands and records any errors as they occur. Here is how the collected information is displayed at
-[Uptrace tracing tool](https://uptrace.dev/get/opentelemetry-tracing-tool.html):
+commands and records any errors as they occur. Here is how the collected information is displayed:
 
 ![Redis trace](/redis-monitoring/trace.png)
 
@@ -97,11 +93,11 @@ You can send OpenTelemetry metrics to Prometheus using
 
 ## Monitoring Redis Server performance
 
-See
-[Monitoring Redis Performance using OpenTelemetry](https://uptrace.dev/opentelemetry/redis-performance-monitoring.html).
+In addition to monitoring go-redis client, you can also
+[monitor Redis Server performance](https://uptrace.dev/opentelemetry/redis-performance-monitoring.html)
+using OpenTelemetry Collector Agent.
 
 ## See also
 
 - [Debugging Go Redis: pool size, timeouts](/guide/go-redis-debugging.html)
-- [Open Source distributed tracing tools](https://uptrace.dev/get/compare/distributed-tracing-tools.html)
 - [Getting started with OpenTelemetry, Gin, and GORM](https://uptrace.dev/get/opentelemetry-gin-gorm.html)

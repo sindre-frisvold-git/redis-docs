@@ -2,16 +2,16 @@
 title: Golang Redis Pipelines, WATCH, and Transactions
 ---
 
-<UptraceCta />
-
 <CoverImage title="Golang Redis Pipelines, WATCH, and Transactions" />
-
-## Speeding up Redis with pipelines
 
 Redis pipelines allow to improve performance by executing multiple commands using a single
 client-server-client round trip. Instead of executing 100 commands one by one, you can queue the
 commands in a pipeline and then execute the queued commands using a single write + read operation as
 if it is a single command.
+
+[[toc]]
+
+## Pipelines
 
 To execute multiple commands with a single write + read operation:
 
@@ -66,7 +66,7 @@ for _, cmd := range cmds {
 }
 ```
 
-## Transactions and Watch
+## Watch
 
 Using Redis [transactions](https://redis.io/topics/transactions), you can watch for changes in keys
 and execute the pipeline only if the watched keys have not changed by another client. Such conflict
@@ -83,6 +83,8 @@ MULTI
 SET mykey $val
 EXEC
 ```
+
+## Transactions
 
 You can wrap a pipeline with MULTI and EXEC commands using `TxPipelined` and `TxPipeline`, but it is
 not very useful on its own:
@@ -154,3 +156,7 @@ func increment(key string) error {
 	return errors.New("increment reached maximum number of retries")
 }
 ```
+
+## Monitoring Performance
+
+!!!include(uptrace.md)!!!

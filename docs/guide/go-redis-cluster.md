@@ -6,7 +6,7 @@ title: Go client for Redis Cluster
 
 <!-- prettier-ignore -->
 ::: tip
-To get an idea how to use go-redis client, see [Getting started](server.md) guide.
+To get an idea how to use go-redis client, see [Getting started](go-redis.html) guide.
 :::
 
 go-redis comes with a client for [Redis Cluster](https://redis.io/topics/cluster-tutorial).

@@ -13,10 +13,10 @@
       <div class="spacer"></div>
 
       <div class="links">
-        <a href="https://get.uptrace.dev/" target="_blank">Tracing tool</a>
+        <a href="https://uptrace.dev/get/" target="_blank">Tracing tool</a>
         <a href="https://bun.uptrace.dev/" target="_blank">Golang ORM</a>
         <a href="https://clickhouse.uptrace.dev/" target="_blank">Golang ClickHouse</a>
-        <a href="https://blog.uptrace.dev/" target="_blank">Blog</a>
+        <a href="https://uptrace.dev/blog/" target="_blank">Blog</a>
       </div>
     </div>
     <Layout>
@@ -72,12 +72,8 @@ export default {
     function randLink(currHref = '') {
       const links = [
         {
-          text: 'Get latest updates right to your email',
-          href: 'https://blog.uptrace.dev/pages/newsletter.html',
-        },
-        {
           text: 'Investigating and improving Redis performance',
-          href: '/guide/performance.html',
+          href: '/guide/go-redis-debugging.html',
         },
         {
           text: 'BunRouter is an extremely fast and flexible HTTP router',
@@ -89,7 +85,7 @@ export default {
         },
         {
           text: 'Getting started with Gin, GORM, OpenTelemetry, and Uptrace',
-          href: 'https://get.uptrace.dev/opentelemetry/gin-gorm.html',
+          href: 'https://uptrace.dev/get/opentelemetry-gin-gorm.html',
         },
         {
           text: '@uptracedev: we tweet about Go, OpenTelemetry, ClickHouse, and more',
