@@ -89,4 +89,4 @@ losing some data. Otherwise, you can try [Redis Cluster](/guide/go-redis-cluster
 
 ## Monitoring
 
-See [Monitoring Redis Performance using OpenTelemetry](go-redis-monitoring.html).
+!!!include(uptrace.md)!!!

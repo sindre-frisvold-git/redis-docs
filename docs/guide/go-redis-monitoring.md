@@ -31,7 +31,8 @@ separate module:
 go get github.com/go-redis/redis/extra/redisotel/v8
 ```
 
-To instrument Redis client, you need to add the hook provided by redisotel:
+To instrument Redis client, you need to add the hook provided by redisotel. The same methods can be
+used to instrument `redis.Client`, `redis.ClusterClient`, and `redis.Ring`.
 
 ```go
 import (
@@ -41,23 +42,15 @@ import (
 
 rdb := redis.NewClient(&redis.Options{...})
 
-rdb.AddHook(redisotel.NewTracingHook())
-```
+// Enable tracing instrumentation.
+if err := redisotel.InstrumentTracing(rdb); err != nil {
+	panic(err)
+}
 
-For Redis Cluster and Ring you need to instrument each node separately:
-
-```go
-rdb := redis.NewClusterClient(&redis.ClusterOptions{
-    // ...
-
-    NewClient: func(opt *redis.Options) *redis.Client {
-        node := redis.NewClient(opt)
-        node.AddHook(redisotel.NewTracingHook())
-        return node
-    },
-})
-
-rdb.AddHook(redisotel.NewTracingHook())
+// Enable metrics instrumentation.
+if err := redisotel.InstrumentMetrics(rdb); err != nil {
+	panic(err)
+}
 ```
 
 To make tracing work, you must pass the active
@@ -71,8 +64,10 @@ val, err := rdb.Get(ctx, "key").Result()
 
 ## Uptrace
 
-Uptrace is an open source APM tool with an intuitive query builder, rich dashboards, automatic
-alerts, and integrations for most languages and frameworks.
+Uptrace is an [open-source APM](https://uptrace.dev/get/open-source-apm.html) and a popular
+[DataDog competitor](https://uptrace.dev/get/compare/datadog-competitors.html) that supports
+distributed tracing, metrics, and logs. You can use it to monitor applications and set up automatic
+alerts to receive notifications via email, Slack, Telegram, and more.
 
 You can [install Uptrace](https://uptrace.dev/get/install.html) by downloading a DEB/RPM package or
 a pre-compiled binary.
