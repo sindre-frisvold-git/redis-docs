@@ -2,27 +2,31 @@
 
 Today the go-redis team is thrilled to release go-redis v9, which adds support for RESP3 protocol,
 introduces new hooks API, improves pipelines retries. and allows to monitor performance using
-OpenTelemetry tracing and metrics.
+OpenTelemetry.
 
 With this release, we also took a chance to move the [go-redis](https://github.com/redis/go-redis)
-repository under the Redis org on GitHub, which means that you should use a new import path:
+repository under the [Redis org](https://github.com/redis/) on GitHub to join other popular Redis
+clients.
+
+The new repository location means that you should use a new import path to use go-redis v9:
 
 ```go
-// old, deprecated
-import "github.com/go-redis/redis/v9"
+// old, v8
+import "github.com/go-redis/redis/v8"
 
-// new, recommended
-import "go.redis.io/redis/v9"
+// new, v9
+import "github.com/redis/go-redis/v9"
 ```
 
-Other than that, the API is the same:
+Other than that, the API remains the same:
 
 ```go
 package main
 
 import (
 	"context"
-	"go.redis.io/redis/v9"
+
+	"github.com/redis/go-redis/v9"
 )
 
 func main() {
@@ -34,8 +38,7 @@ func main() {
 		DB:		  0,  // use default DB
 	})
 
-	err := rdb.Set(ctx, "key", "value", 0).Err()
-	if err != nil {
+	if err := rdb.Set(ctx, "key", "value", 0).Err(); err != nil {
 		panic(err)
 	}
 
@@ -50,17 +53,17 @@ func main() {
 ## RESP3
 
 [@monkey92t](https://github.com/monkey92t) did all the hard work to seamlessly support
-[RESP3](https://github.com/antirez/RESP3/blob/master/spec.md) protocol in go-redis.
+[RESP3](https://github.com/antirez/RESP3/blob/master/spec.md) protocol in go-redis v9.
 
 RESP3 is an updated version of RESP v2, which is the protocol used in Redis. It supports more
 [data types](https://github.com/antirez/RESP3/blob/master/spec.md#resp3-types) which allows to
-implement [client side caching](https://redis.io/docs/manual/client-side-caching/), which go-redis
-does not support yet.
+implement [client side caching](https://redis.io/docs/manual/client-side-caching/) in future
+go-redis versions.
 
 ## Improved hooks
 
-v9 comes with the simplified design of execution hooks which can be used to instrument Redis client
-operations:
+v9 comes with the simplified design of execution hooks which can be used to instrument the following
+Redis client operations:
 
 - `DialHook` is called to establish new connection.
 - `ProcessHook` is called to process a Redis command.
@@ -69,7 +72,7 @@ operations:
 The hooks API now looks like this:
 
 ```go
-import "go.redis.io/redis/v9"
+import "github.com/redis/go-redis/v9"
 
 type redisHook struct{}
 
@@ -108,16 +111,16 @@ func (redisHook) ProcessPipelineHook(hook redis.ProcessPipelineHook) redis.Proce
 [OpenTelemetry](https://uptrace.dev/opentelemetry/) is an open source and vendor-neutral API for
 distributed tracing, logs, and metrics. go-redis comes with an OpenTelemetry instrumentation called
 [redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel) that uses hooks API to
-instrument go-redis clients.
+instrument go-redis client.
 
 In v9, the redisotel package was fully reworked to support both
-[tracing](https://uptrace.dev/opentelemetry/distributed-tracing.html) and
-[metrics](https://uptrace.dev/opentelemetry/metrics.html) like this:
+[OpenTeleemtry tracing](https://uptrace.dev/opentelemetry/distributed-tracing.html) and
+[OpenTelemetry metrics](https://uptrace.dev/opentelemetry/metrics.html) like this:
 
 ```go
 import (
-	"go.redis.io/redis/extra/redisotel/v9"
-	"go.redis.io/redis/v9"
+	"github.com/go-redis/redis/extra/redisotel/v9"
+	"github.com/redis/go-redis/v9"
 )
 
 rdb := redis.NewClient(...)
@@ -134,12 +137,8 @@ if err := redisotel.InstrumentMetrics(rdb); err != nil {
 }
 ```
 
-You can run the [example](https://github.com/go-redis/redis/tree/master/example/otel) yourself to
-get a trace like this:
-
-**screnshoot goes here**
-
-See [Monitoring Go Redis Performance](https://redis.uptrace.dev/guide/go-redis-monitoring.html) for
+See the [example](https://github.com/go-redis/redis/tree/master/example/otel) on GitHub and
+[OpenTelemetry Redis Monitoring](https://uptrace.dev/opentelemetry/redis-monitoring.html) for
 details.
 
 ## Redis Metrics
@@ -155,24 +154,13 @@ Starting with v9, redisotel reports the following metrics:
   pool.
 
 You can visualize and monitor those metrics using
-[open source APM](https://uptrace.dev/get/open-source-apm.html) tool called Uptrace which is
-developed by go-redis authors
+[open source APM](https://uptrace.dev/get/open-source-apm.html) tool called Uptrace which happens to
+be developed by go-redis authors :)
 
 Uptrace is an
 [open-source DataDog competitor](https://uptrace.dev/get/compare/datadog-competitors.html) with an
 intuitive query builder, rich dashboards, automatic alerts, and integrations for most languages and
 frameworks.
-
-After [installing Uptrace](https://uptrace.dev/get/install.html), it will automatically create the
-following dashboard for you:
-
-**screnshoot goes here**
-
-In addition to monitoring go-redis client, you can also
-[monitor Redis Server performance](https://uptrace.dev/opentelemetry/redis-performance-monitoring.html)
-using OpenTelemetry Collector Agent.
-
-## Prometheus
 
 You can also send OpenTelemetry metrics to Prometheus using
 [OpenTelemetry Prometheus exporter](https://uptrace.dev/opentelemetry/prometheus-metrics.html).
@@ -189,7 +177,7 @@ if err != nil {
 rdb := redis.NewClient(options)
 ```
 
-In v9, we added `ParseClusterURL` that allows to connect to a Redis cluster:
+In v9, we also added `ParseClusterURL` that allows to connect to a Redis cluster:
 
 ```go
 options, err := redis.("redis://user:password@localhost:6789?dial_timeout=3&read_timeout=6s&addr=localhost:6790&addr=localhost:6791")
