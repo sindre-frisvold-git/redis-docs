@@ -1,13 +1,14 @@
 # go-redis joins Redis org on GitHub
 
-Today the go-redis team is thrilled to release go-redis v9, which adds support for the [RESP3 protocol](https://github.com/antirez/RESP3/blob/master/spec.md),
-introduces the new hooks API, improves pipelines retries, and allows performance monitoring via OpenTelemetry.
+Today the go-redis team is thrilled to release go-redis v9, which adds support for the
+[RESP3 protocol](https://github.com/antirez/RESP3/blob/master/spec.md), introduces the new hooks
+API, improves pipelines retries, and allows performance monitoring via OpenTelemetry.
 
-With this release, we also took the opportunity to move the [go-redis](https://github.com/redis/go-redis)
-repository under the [Redis GitHub organization](https://github.com/redis/), joining other popular Redis
-clients.
+With this release, we also took the opportunity to move the
+[go-redis](https://github.com/redis/go-redis) repository under the
+[Redis GitHub organization](https://github.com/redis/), joining other popular Redis clients.
 
-The new repository location means that you a new import path for go-redis v9:
+The new repository location means that you should use a new import path for go-redis v9:
 
 ```go
 // old, v8
@@ -17,7 +18,8 @@ import "github.com/go-redis/redis/v8"
 import "github.com/redis/go-redis/v9"
 ```
 
-Beyond that, the API remains the same, and previous releases will continue to work, with their current paths:
+Beyond that, the API remains the same, and previous releases will continue to work, with their
+current paths:
 
 ```go
 package main
@@ -55,13 +57,14 @@ func main() {
 [RESP3](https://github.com/antirez/RESP3/blob/master/spec.md) protocol in go-redis v9!
 
 RESP3 is an updated version of RESP v2, the protocol used in Redis. It supports more
-[data types](https://github.com/antirez/RESP3/blob/master/spec.md#resp3-types) and lays the groundwork that
-will allow us to implement [client side caching](https://redis.io/docs/manual/client-side-caching/) in future releases.
+[data types](https://github.com/antirez/RESP3/blob/master/spec.md#resp3-types) and lays the
+groundwork that will allow us to implement
+[client side caching](https://redis.io/docs/manual/client-side-caching/) in future releases.
 
 ## Improved hooks
 
-v9 comes with the simplified design of execution hooks, used to instrument the following
-Redis client operations:
+v9 comes with the simplified design of execution hooks, used to instrument the following Redis
+client operations:
 
 - `DialHook` establishes a new connection.
 - `ProcessHook` processes a Redis command.
@@ -107,8 +110,9 @@ func (redisHook) ProcessPipelineHook(hook redis.ProcessPipelineHook) redis.Proce
 ## OpenTelemetry
 
 [OpenTelemetry](https://uptrace.dev/opentelemetry/) is an open source and vendor-neutral API for
-distributed tracing, logs, and metrics. go-redis integrates with OpenTelemetry, instrumentation is based on
-[redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel). The hooks API supports instrumentation in the go-redis client.
+distributed tracing, logs, and metrics. go-redis integrates with OpenTelemetry, instrumentation is
+based on [redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel). The hooks API
+supports instrumentation in the go-redis client.
 
 In v9, the redisotel package was fully reworked to support both
 [OpenTelemetry tracing](https://uptrace.dev/opentelemetry/distributed-tracing.html) and
@@ -151,7 +155,8 @@ Starting with v9, redisotel reports the following metrics:
   pool.
 
 You can visualize and monitor those metrics using Uprace, an
-[open source APM](https://uptrace.dev/get/open-source-apm.html) tool, developed by by the go-redis authors :)
+[open source APM](https://uptrace.dev/get/open-source-apm.html) tool, developed by by the go-redis
+authors :)
 
 Uptrace is an
 [open-source DataDog competitor](https://uptrace.dev/get/compare/datadog-competitors.html) with an
@@ -163,7 +168,7 @@ OpenTelemetry metrics can also be sent to Prometheus via
 
 ## ParseClusterURL
 
-In v8, you could a url based connection was supportd by `ParseURL` as below:
+In v8, an url based connection was supported by `ParseURL` as below:
 
 ```go
 options, err := redis.ParseURL("redis://<user>:<pass>@localhost:6379/<db>")
