@@ -1,14 +1,13 @@
 # go-redis joins Redis org on GitHub
 
-Today the go-redis team is thrilled to release go-redis v9, which adds support for RESP3 protocol,
-introduces new hooks API, improves pipelines retries. and allows to monitor performance using
-OpenTelemetry.
+Today the go-redis team is thrilled to release go-redis v9, which adds support for the [RESP3 protocol](https://github.com/antirez/RESP3/blob/master/spec.md),
+introduces the new hooks API, improves pipelines retries, and allows performance monitoring via OpenTelemetry.
 
-With this release, we also took a chance to move the [go-redis](https://github.com/redis/go-redis)
-repository under the [Redis org](https://github.com/redis/) on GitHub to join other popular Redis
+With this release, we also took the opportunity to move the [go-redis](https://github.com/redis/go-redis)
+repository under the [Redis GitHub organization](https://github.com/redis/), joining other popular Redis
 clients.
 
-The new repository location means that you should use a new import path to use go-redis v9:
+The new repository location means that you a new import path for go-redis v9:
 
 ```go
 // old, v8
@@ -18,7 +17,7 @@ import "github.com/go-redis/redis/v8"
 import "github.com/redis/go-redis/v9"
 ```
 
-Other than that, the API remains the same:
+Beyond that, the API remains the same, and previous releases will continue to work, with their current paths:
 
 ```go
 package main
@@ -52,24 +51,23 @@ func main() {
 
 ## RESP3
 
-[@monkey92t](https://github.com/monkey92t) did all the hard work to seamlessly support
-[RESP3](https://github.com/antirez/RESP3/blob/master/spec.md) protocol in go-redis v9.
+[@monkey92t](https://github.com/monkey92t) did the hard work to seamlessly support the
+[RESP3](https://github.com/antirez/RESP3/blob/master/spec.md) protocol in go-redis v9!
 
-RESP3 is an updated version of RESP v2, which is the protocol used in Redis. It supports more
-[data types](https://github.com/antirez/RESP3/blob/master/spec.md#resp3-types) which allows to
-implement [client side caching](https://redis.io/docs/manual/client-side-caching/) in future
-go-redis versions.
+RESP3 is an updated version of RESP v2, the protocol used in Redis. It supports more
+[data types](https://github.com/antirez/RESP3/blob/master/spec.md#resp3-types) and lays the groundwork that
+will allow us to implement [client side caching](https://redis.io/docs/manual/client-side-caching/) in future releases.
 
 ## Improved hooks
 
-v9 comes with the simplified design of execution hooks which can be used to instrument the following
+v9 comes with the simplified design of execution hooks, used to instrument the following
 Redis client operations:
 
-- `DialHook` is called to establish new connection.
-- `ProcessHook` is called to process a Redis command.
-- `ProcessPipelineHook` is called to process Redis commands in a pipeline.
+- `DialHook` establishes a new connection.
+- `ProcessHook` processes a Redis command.
+- `ProcessPipelineHook` processes Redis commands in a pipeline.
 
-The hooks API now looks like this:
+The hooks API now looks like the following:
 
 ```go
 import "github.com/redis/go-redis/v9"
@@ -109,13 +107,12 @@ func (redisHook) ProcessPipelineHook(hook redis.ProcessPipelineHook) redis.Proce
 ## OpenTelemetry
 
 [OpenTelemetry](https://uptrace.dev/opentelemetry/) is an open source and vendor-neutral API for
-distributed tracing, logs, and metrics. go-redis comes with an OpenTelemetry instrumentation called
-[redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel) that uses hooks API to
-instrument go-redis client.
+distributed tracing, logs, and metrics. go-redis integrates with OpenTelemetry, instrumentation is based on
+[redisotel](https://github.com/go-redis/redis/tree/master/extra/redisotel). The hooks API supports instrumentation in the go-redis client.
 
 In v9, the redisotel package was fully reworked to support both
-[OpenTeleemtry tracing](https://uptrace.dev/opentelemetry/distributed-tracing.html) and
-[OpenTelemetry metrics](https://uptrace.dev/opentelemetry/metrics.html) like this:
+[OpenTelemetry tracing](https://uptrace.dev/opentelemetry/distributed-tracing.html) and
+[OpenTelemetry metrics](https://uptrace.dev/opentelemetry/metrics.html) as follows:
 
 ```go
 import (
@@ -137,9 +134,9 @@ if err := redisotel.InstrumentMetrics(rdb); err != nil {
 }
 ```
 
-See the [example](https://github.com/go-redis/redis/tree/master/example/otel) on GitHub and
+See [this example](https://github.com/go-redis/redis/tree/master/example/otel) on GitHub and
 [OpenTelemetry Redis Monitoring](https://uptrace.dev/opentelemetry/redis-monitoring.html) for
-details.
+further details.
 
 ## Redis Metrics
 
@@ -153,21 +150,20 @@ Starting with v9, redisotel reports the following metrics:
 - `db.client.connections.use_time` - the time between borrowing a connection and returning it to the
   pool.
 
-You can visualize and monitor those metrics using
-[open source APM](https://uptrace.dev/get/open-source-apm.html) tool called Uptrace which happens to
-be developed by go-redis authors :)
+You can visualize and monitor those metrics using Uprace, an
+[open source APM](https://uptrace.dev/get/open-source-apm.html) tool, developed by by the go-redis authors :)
 
 Uptrace is an
 [open-source DataDog competitor](https://uptrace.dev/get/compare/datadog-competitors.html) with an
-intuitive query builder, rich dashboards, automatic alerts, and integrations for most languages and
+intuitive query builder, rich dashboards, automatic alerts, and integrations for many languages and
 frameworks.
 
-You can also send OpenTelemetry metrics to Prometheus using
+OpenTelemetry metrics can also be sent to Prometheus via
 [OpenTelemetry Prometheus exporter](https://uptrace.dev/opentelemetry/prometheus-metrics.html).
 
 ## ParseClusterURL
 
-In v8, you could use `ParseURL` to connect to a Redis Server like this:
+In v8, you could a url based connection was supportd by `ParseURL` as below:
 
 ```go
 options, err := redis.ParseURL("redis://<user>:<pass>@localhost:6379/<db>")
@@ -177,7 +173,7 @@ if err != nil {
 rdb := redis.NewClient(options)
 ```
 
-In v9, we also added `ParseClusterURL` that allows to connect to a Redis cluster:
+In v9, Redis cluster support was added via `ParseClusterURL`:
 
 ```go
 options, err := redis.("redis://user:password@localhost:6789?dial_timeout=3&read_timeout=6s&addr=localhost:6790&addr=localhost:6791")
